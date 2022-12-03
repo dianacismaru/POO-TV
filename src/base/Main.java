@@ -15,7 +15,7 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
 
         // TESTARE PARTICULARA
-         AppInput appInput = objectMapper.readValue(new File("checker/resources/in/basic_2.json"), AppInput.class);
+         AppInput appInput = objectMapper.readValue(new File("checker/resources/in/basic_1.json"), AppInput.class);
 
         // TESTARE COMPLETA
         // AppInput appInput = objectMapper.readValue(new File(args[0]), AppInput.class);
@@ -27,9 +27,10 @@ public class Main {
         for (Action action : appInput.getActions()) {
             action.execute();
 
-            // debuggingMethod(action);
+            debuggingMethod(action);
 
             if (hasOutput(action)) {
+                System.out.println("AFISEZ NOD");
                 errorsOutput.add(action.getErrorOutput());
             }
         }
@@ -37,7 +38,7 @@ public class Main {
         ArrayNode output = objectMapper.valueToTree(errorsOutput);
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
-        objectWriter.writeValue(new File(args[1]), output);
+        objectWriter.writeValue(new File("results.out"), output);
     }
 
     private static boolean hasOutput(Action action) {

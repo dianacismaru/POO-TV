@@ -3,7 +3,7 @@ package actions;
 import pages.LoginPage;
 import pages.RegisterPage;
 
-public class OnPageAction extends Action {
+public final class OnPageAction extends Action {
     public OnPageAction(Action action) {
         this.setType(action.getType());
         this.setPage(action.getPage());

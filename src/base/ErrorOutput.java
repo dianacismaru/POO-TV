@@ -7,22 +7,27 @@ import users.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ErrorOutput {
+public final class ErrorOutput {
     private String error;
     private List<Movie> currentMoviesList;
     private User currentUser;
 
     public ErrorOutput() {
         this.error = null;
-        this.currentMoviesList = new ArrayList<>();
+        if (Action.getCurrentMoviesList() == null) {
+            this.currentMoviesList = new ArrayList<>();
+        } else {
+            this.currentMoviesList = new ArrayList<>(Action.getCurrentMoviesList());
+        }
         this.currentUser = Action.getCurrentUser();
     }
 
-    public ErrorOutput(String error) {
+    public ErrorOutput(String currentPage) {
         this();
-        this.error = error;
+        this.error = "Error";
+        this.currentMoviesList = new ArrayList<>();
         this.currentUser = null;
-        Action.setCurrentPage("homepage");
+        Action.setCurrentPage(currentPage);
         Action.setCurrentUser(null);
     }
 

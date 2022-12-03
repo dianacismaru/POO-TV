@@ -5,10 +5,10 @@ import actions.OnPageAction;
 import base.ErrorOutput;
 import users.User;
 
-public class LoginPage extends Page {
+public final class LoginPage extends Page {
     public static void login(OnPageAction action) {
         if (!Action.getCurrentPage().equals("login")) {
-            action.setErrorOutput(new ErrorOutput("Error"));
+            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
         }
 
@@ -19,10 +19,11 @@ public class LoginPage extends Page {
             if (user.getCredentials().getName().equals(userName)
                     && user.getCredentials().getPassword().equals(password)) {
                 Action.setCurrentUser(user);
+                Action.setCurrentPage("loggedHomepage");
                 action.setErrorOutput(new ErrorOutput());
                 return;
             }
         }
-        action.setErrorOutput(new ErrorOutput("Error"));
+        action.setErrorOutput(new ErrorOutput("homepage"));
     }
 }

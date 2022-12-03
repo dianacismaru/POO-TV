@@ -3,10 +3,13 @@ package actions;
 import base.AppInput;
 import base.ErrorOutput;
 import filters.Filters;
+import movies.Movie;
 import users.Credentials;
 import users.User;
 import visitor.ClientVisitor;
 import visitor.Visitable;
+
+import java.util.List;
 
 public class Action implements Visitable {
     private String type;
@@ -23,6 +26,7 @@ public class Action implements Visitable {
     private ErrorOutput errorOutput;
     private static String currentPage;
     private static User currentUser;
+    private static List<Movie> currentMoviesList;
     private static AppInput appInput;
 
     public void execute() {
@@ -138,6 +142,14 @@ public class Action implements Visitable {
 
     public static void setCurrentUser(User currentUser) {
         Action.currentUser = currentUser;
+    }
+
+    public static List<Movie> getCurrentMoviesList() {
+        return currentMoviesList;
+    }
+
+    public static void setCurrentMoviesList(List<Movie> currentMoviesList) {
+        Action.currentMoviesList = currentMoviesList;
     }
 
     public static AppInput getAppInput() {
