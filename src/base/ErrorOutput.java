@@ -1,5 +1,6 @@
 package base;
 
+import actions.Action;
 import movies.Movie;
 import users.User;
 
@@ -12,7 +13,17 @@ public class ErrorOutput {
     private User currentUser;
 
     public ErrorOutput() {
+        this.error = null;
         this.currentMoviesList = new ArrayList<>();
+        this.currentUser = Action.getCurrentUser();
+    }
+
+    public ErrorOutput(String error) {
+        this();
+        this.error = error;
+        this.currentUser = null;
+        Action.setCurrentPage("homepage");
+        Action.setCurrentUser(null);
     }
 
     public String getError() {

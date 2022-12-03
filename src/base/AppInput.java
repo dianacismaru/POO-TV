@@ -6,7 +6,7 @@ import users.User;
 
 import java.util.List;
 
-public final class Input {
+public final class AppInput {
     private List<User> users;
     private List<Movie> movies;
     private List<Action> actions;

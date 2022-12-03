@@ -1,9 +1,14 @@
 package actions;
 
+import base.AppInput;
+import base.ErrorOutput;
 import filters.Filters;
 import users.Credentials;
+import users.User;
+import visitor.ClientVisitor;
+import visitor.Visitable;
 
-public class Action {
+public class Action implements Visitable {
     private String type;
     private String page;
     private String feature;
@@ -14,6 +19,22 @@ public class Action {
     private String movie;
     private String objectType;
     private String rate;
+
+    private ErrorOutput errorOutput;
+    private static String currentPage;
+    private static User currentUser;
+    private static AppInput appInput;
+
+    public void execute() {
+        Action action;
+        if (type.equals("change page")) {
+            action = new ChangePageAction(this);
+        } else {
+            action = new OnPageAction(this);
+        }
+        action.execute();
+        this.setErrorOutput(action.getErrorOutput());
+    }
 
     public String getType() {
         return type;
@@ -93,5 +114,42 @@ public class Action {
 
     public void setRate(String rate) {
         this.rate = rate;
+    }
+
+    public ErrorOutput getErrorOutput() {
+        return errorOutput;
+    }
+
+    public void setErrorOutput(ErrorOutput errorOutput) {
+        this.errorOutput = errorOutput;
+    }
+
+    public static String getCurrentPage() {
+        return currentPage;
+    }
+
+    public static void setCurrentPage(String currentPage) {
+        Action.currentPage = currentPage;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        Action.currentUser = currentUser;
+    }
+
+    public static AppInput getAppInput() {
+        return appInput;
+    }
+
+    public static void setAppInput(AppInput appInput) {
+        Action.appInput = appInput;
+    }
+
+    @Override
+    public void accept(ClientVisitor visitor) {
+        visitor.visit(this);
     }
 }

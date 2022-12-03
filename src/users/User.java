@@ -2,15 +2,25 @@ package users;
 
 import movies.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    Credentials credentials;
+    private Credentials credentials;
     private int tokensCount;
-    private List<Movie> purchasedMovies;
-    private List<Movie> watchedMovies;
-    private List<Movie> likedMovies;
-    private List<Movie> ratedMovies;
+    private int numFreePremiumMovies = 15;
+    private List<Movie> purchasedMovies = new ArrayList<>();
+    private List<Movie> watchedMovies = new ArrayList<>();
+    private List<Movie> likedMovies = new ArrayList<>();
+    private List<Movie> ratedMovies = new ArrayList<>();
+
+    public User() {
+
+    }
+
+    public User(Credentials credentials) {
+        this.credentials = credentials;
+    }
 
     public Credentials getCredentials() {
         return credentials;
@@ -26,6 +36,14 @@ public class User {
 
     public void setTokensCount(int tokensCount) {
         this.tokensCount = tokensCount;
+    }
+
+    public int getNumFreePremiumMovies() {
+        return numFreePremiumMovies;
+    }
+
+    public void setNumFreePremiumMovies(int numFreePremiumMovies) {
+        this.numFreePremiumMovies = numFreePremiumMovies;
     }
 
     public List<Movie> getPurchasedMovies() {
@@ -58,17 +76,5 @@ public class User {
 
     public void setRatedMovies(List<Movie> ratedMovies) {
         this.ratedMovies = ratedMovies;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "credentials=" + credentials +
-                ",\n tokensCount=" + tokensCount +
-                ",\n purchasedMovies=" + purchasedMovies +
-                ",\n watchedMovies=" + watchedMovies +
-                ",\n likedMovies=" + likedMovies +
-                ",\n ratedMovies=" + ratedMovies +
-                "}\n";
     }
 }

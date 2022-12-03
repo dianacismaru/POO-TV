@@ -1,7 +1,5 @@
 package users;
 
-import users.User;
-
 public class PremiumUser extends User {
     private int numFreePremiumMovies;
 
