@@ -1,6 +1,7 @@
 package actions;
 
 import pages.LoginPage;
+import pages.MoviesPage;
 import pages.RegisterPage;
 
 public final class OnPageAction extends Action {
@@ -39,7 +40,7 @@ public final class OnPageAction extends Action {
     }
 
     public void search() {
-
+        MoviesPage.search(this);
     }
 
     public void filter() {

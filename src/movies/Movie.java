@@ -1,16 +1,16 @@
 package movies;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class Movie {
     private String name;
     private int year;
     private int duration;
-    private String[] genres;
-    private String[] actors;
-    private String[] countriesBanned;
+    List<String> genres;
+    List<String> actors;
+    List<String> countriesBanned;
 
-    private double rating;
+    private int rating;
     private int numLikes;
     private int numRatings;
 
@@ -38,35 +38,35 @@ public class Movie {
         this.duration = duration;
     }
 
-    public String[] getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(String[] genres) {
+    public void setGenres(List<String>  genres) {
         this.genres = genres;
     }
 
-    public String[] getActors() {
+    public List<String> getActors() {
         return actors;
     }
 
-    public void setActors(String[] actors) {
+    public void setActors(List<String> actors) {
         this.actors = actors;
     }
 
-    public String[] getCountriesBanned() {
+    public List<String> getCountriesBanned() {
         return countriesBanned;
     }
 
-    public void setCountriesBanned(String[] countriesBanned) {
+    public void setCountriesBanned(List<String> countriesBanned) {
         this.countriesBanned = countriesBanned;
     }
 
-    public double getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
@@ -84,20 +84,5 @@ public class Movie {
 
     public void setNumRatings(int numRatings) {
         this.numRatings = numRatings;
-    }
-
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "name='" + name + '\'' +
-                ",\n year=" + year +
-                ",\n duration=" + duration +
-                ",\n genres=" + Arrays.toString(genres) +
-                ",\n actors=" + Arrays.toString(actors) +
-                ",\n countriesBanned=" + Arrays.toString(countriesBanned) +
-                ",\n rating=" + rating +
-                ",\n numLikes=" + numLikes +
-                ",\n numRatings=" + numRatings +
-                "}\n";
     }
 }

@@ -1,6 +1,7 @@
 package actions;
 
 import base.ErrorOutput;
+import pages.MoviesPage;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,8 @@ public final class ChangePageAction extends Action {
     }
 
     public void movies() {
-        if (getCurrentPage().equals("loggedHomepage")
+        MoviesPage.movies(this);
+/*        if (getCurrentPage().equals("loggedHomepage")
                 || getCurrentPage().equals("see details")
                 || getCurrentPage().equals("upgrades")) {
             setCurrentPage("movies");
@@ -48,7 +50,7 @@ public final class ChangePageAction extends Action {
             setErrorOutput(new ErrorOutput());
         } else {
             setErrorOutput(new ErrorOutput("homepage"));
-        }
+        }*/
     }
 
     public void seeDetails() {
