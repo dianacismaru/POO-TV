@@ -1,4 +1,4 @@
-package filters;
+package base.filters;
 
 public class Filters {
     private Sort sort;

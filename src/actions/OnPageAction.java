@@ -1,8 +1,6 @@
 package actions;
 
-import pages.LoginPage;
-import pages.MoviesPage;
-import pages.RegisterPage;
+import pages.*;
 
 public final class OnPageAction extends Action {
     public OnPageAction(Action action) {
@@ -13,6 +11,7 @@ public final class OnPageAction extends Action {
         this.setCount(action.getCount());
         this.setStartsWith(action.getStartsWith());
         this.setFilters(action.getFilters());
+        this.setMovie(action.getMovie());
     }
 
     @Override
@@ -44,11 +43,11 @@ public final class OnPageAction extends Action {
     }
 
     public void filter() {
-
+        MoviesPage.filter(this);
     }
 
     public void purchase() {
-
+        DetailsPage.purchase(this);
     }
 
     public void watch() {
@@ -64,10 +63,10 @@ public final class OnPageAction extends Action {
     }
 
     public void buyPremiumAccount() {
-
+        UpgradesPage.buyPremiumAccount(this);
     }
 
     public void buyTokens() {
-
+        UpgradesPage.buyTokens(this);
     }
 }

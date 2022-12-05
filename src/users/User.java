@@ -18,6 +18,16 @@ public class User {
 
     }
 
+    public User(User user) {
+        this.credentials = new Credentials(user.credentials);
+        this.tokensCount = user.tokensCount;
+        this.numFreePremiumMovies = user.numFreePremiumMovies;
+        this.purchasedMovies = new ArrayList<>(user.purchasedMovies);
+        this.watchedMovies = new ArrayList<>(user.watchedMovies);
+        this.likedMovies = new ArrayList<>(user.likedMovies);
+        this.ratedMovies = new ArrayList<>(user.ratedMovies);
+    }
+
     public User(Credentials credentials) {
         this.credentials = credentials;
     }

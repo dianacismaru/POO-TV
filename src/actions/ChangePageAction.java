@@ -1,14 +1,15 @@
 package actions;
 
 import base.ErrorOutput;
+import pages.DetailsPage;
 import pages.MoviesPage;
-
-import java.util.ArrayList;
+import pages.UpgradesPage;
 
 public final class ChangePageAction extends Action {
     public ChangePageAction(Action action) {
         this.setType(action.getType());
         this.setPage(action.getPage());
+        this.setMovie(action.getMovie());
         this.setErrorOutput(new ErrorOutput());
     }
 
@@ -42,39 +43,24 @@ public final class ChangePageAction extends Action {
 
     public void movies() {
         MoviesPage.movies(this);
-/*        if (getCurrentPage().equals("loggedHomepage")
-                || getCurrentPage().equals("see details")
-                || getCurrentPage().equals("upgrades")) {
-            setCurrentPage("movies");
-            setCurrentMoviesList(new ArrayList<>(getAppInput().getMovies()));
-            setErrorOutput(new ErrorOutput());
-        } else {
-            setErrorOutput(new ErrorOutput("homepage"));
-        }*/
     }
 
     public void seeDetails() {
-        if (getCurrentPage().equals("movies")) {
-            setCurrentPage("see details");
-        } else {
-            setErrorOutput(new ErrorOutput("homepage"));
-        }
+        DetailsPage.seeDetails(this);
     }
 
     public void upgrades() {
-        if (getCurrentPage().equals("loggedHomepage")
-                || getCurrentPage().equals("see details")) {
-            setCurrentPage("upgrades");
-        } else {
-            setErrorOutput(new ErrorOutput("homepage"));
-        }
+        UpgradesPage.upgrades(this);
     }
 
     public void logout() {
         if (getCurrentPage().equals("loggedHomepage")
                 || getCurrentPage().equals("see details")
-                || getCurrentPage().equals("upgrades")) {
+                || getCurrentPage().equals("upgrades")
+                || getCurrentPage().equals("movies")) {
             setCurrentPage("homepage");
+            setCurrentUser(null);
+            setCurrentMoviesList(null);
         } else {
             setErrorOutput(new ErrorOutput("homepage"));
         }

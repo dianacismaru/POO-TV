@@ -7,6 +7,18 @@ public class Credentials {
     private String country;
     private String balance;
 
+    public Credentials() {
+
+    }
+
+    public Credentials(Credentials credentials) {
+        this.name = credentials.name;
+        this.password = credentials.password;
+        this.accountType = credentials.accountType;
+        this.country = credentials.country;
+        this.balance = credentials.balance;
+    }
+
     public String getName() {
         return name;
     }

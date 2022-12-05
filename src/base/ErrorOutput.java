@@ -28,7 +28,7 @@ public final class ErrorOutput {
         this.currentMoviesList = new ArrayList<>();
         this.currentUser = null;
         Action.setCurrentPage(currentPage);
-        Action.setCurrentUser(null);
+        //Action.setCurrentUser(null);
     }
 
     public String getError() {

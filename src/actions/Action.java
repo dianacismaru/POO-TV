@@ -2,7 +2,7 @@ package actions;
 
 import base.AppInput;
 import base.ErrorOutput;
-import filters.Filters;
+import base.filters.Filters;
 import movies.Movie;
 import users.Credentials;
 import users.User;
@@ -16,7 +16,7 @@ public class Action implements Visitable {
     private String page;
     private String feature;
     private Credentials credentials;
-    private String count;
+    private int count;
     private String startsWith;
     private Filters filters;
     private String movie;
@@ -72,11 +72,11 @@ public class Action implements Visitable {
         this.credentials = credentials;
     }
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 
