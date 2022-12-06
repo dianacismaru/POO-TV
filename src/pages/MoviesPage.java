@@ -102,6 +102,17 @@ public final class MoviesPage extends Page {
                 public int compare(Movie movie1, Movie movie2) {
                     int comparator = 0;
 
+                    if (sortFilter.getDuration() != null) {
+                        if (sortFilter.getDuration().equals("increasing")) {
+                            comparator = movie1.getDuration() - movie2.getDuration();
+                        } else {
+                            comparator = movie2.getDuration() - movie1.getDuration();
+                        }
+                        if (comparator != 0) {
+                            return comparator;
+                        }
+                    }
+
                     if (sortFilter.getRating() != null) {
                         if (sortFilter.getRating().equals("increasing")) {
                             comparator = movie1.getRating() - movie2.getRating();
@@ -109,19 +120,9 @@ public final class MoviesPage extends Page {
                             comparator = movie2.getRating() - movie1.getRating();
                         }
 
-                        if (comparator != 0) {
-                            return comparator;
-                        }
-                    }
-                    // in caz de egalitate intre rating-uri sau lipsa criteriului rating
-                    if (sortFilter.getDuration() != null) {
-                        if (sortFilter.getDuration().equals("increasing")) {
-                            comparator = movie1.getDuration() - movie2.getDuration();
-                        } else {
-                            comparator = movie2.getDuration() - movie1.getDuration();
-                        }
                         return comparator;
                     }
+
                     return 0;
                 }
             });

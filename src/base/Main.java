@@ -17,10 +17,10 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
 
         // TESTARE PARTICULARA
-        //AppInput appInput = objectMapper.readValue(new File("checker/resources/in/my_test.json"), AppInput.class);
+        AppInput appInput = objectMapper.readValue(new File("checker/resources/in/basic_8.json"), AppInput.class);
 
         // TESTARE COMPLETA
-        AppInput appInput = objectMapper.readValue(new File(args[0]), AppInput.class);
+        //AppInput appInput = objectMapper.readValue(new File(args[0]), AppInput.class);
 
         List<ErrorOutput> errorsOutput = new ArrayList<>();
         Action.setCurrentPage("homepage");
@@ -31,9 +31,10 @@ public class Main {
         for (Action action : appInput.getActions()) {
             action.execute();
 
-            //debuggingMethod(action);
+            debuggingMethod(action);
 
             if (hasOutput(action)) {
+                System.out.println("AVEM NOD");
                 errorsOutput.add(action.getErrorOutput());
             }
         }

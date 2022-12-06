@@ -25,8 +25,8 @@ public final class DetailsPage extends Page {
             if (detailedMovie.isEmpty()) {
                 action.setErrorOutput(new ErrorOutput("movies"));
             } else {
+                Action.setCurrentMoviesList(detailedMovie);
                 action.setErrorOutput(new ErrorOutput());
-                action.getErrorOutput().setCurrentMoviesList(detailedMovie);
             }
             return;
         }
@@ -34,7 +34,6 @@ public final class DetailsPage extends Page {
         action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
     }
 
-    // TODO: cumpara film, scade din lista, adauga in filme cumparate, scade tokeni
     public static void purchase(OnPageAction action) {
         if (!Action.getCurrentPage().equals("see details")) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
@@ -43,26 +42,111 @@ public final class DetailsPage extends Page {
 
         User user = new User(Action.getCurrentUser());
 
+        // TODO: nu are destule tokens sa cumpere?
+        // TODO daca filmul nu a fost gasit?
+
         if (user.getNumFreePremiumMovies() > 0) {
             user.setNumFreePremiumMovies(user.getNumFreePremiumMovies() - 1);
         } else {
             user.setTokensCount(user.getTokensCount() - 2);
         }
 
-        List<Movie> purchasedMovies = new ArrayList<>();
-        for (Movie movie: Action.getCurrentMoviesList()) {
-            if (movie.getName().equals(action.getMovie())) {
-                purchasedMovies.add(movie);
-                break;
-            }
-        }
+        Movie currentMovie = Action.getCurrentMoviesList().get(0);
+        List<Movie> purchasedMovies = new ArrayList<>(user.getPurchasedMovies());
+        purchasedMovies.add(currentMovie);
         user.setPurchasedMovies(purchasedMovies);
-        // TODO daca filmul nu a fost gasit?
 
         Action.setCurrentUser(user);
         action.setErrorOutput(new ErrorOutput());
-        action.getErrorOutput().setCurrentMoviesList(purchasedMovies);
         action.getErrorOutput().setCurrentUser(user);
-        //action.getErrorOutput().setCurrentMoviesList(user.getPurchasedMovies());
+    }
+
+    public static void watch(OnPageAction action) {
+        if (!Action.getCurrentPage().equals("see details")) {
+            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+            return;
+        }
+
+        // TODO: if purchasedMovies.contains movie, atunci pot sa il vizionez
+
+        User user = new User(Action.getCurrentUser());
+        Movie currentMovie = Action.getCurrentMoviesList().get(0);
+
+        if (!user.getPurchasedMovies().contains(currentMovie)) {
+            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+            return;
+        }
+
+        List<Movie> watchedMovies = new ArrayList<>(user.getWatchedMovies());
+        watchedMovies.add(currentMovie);
+        user.setWatchedMovies(watchedMovies);
+        Action.setCurrentUser(user);
+        action.setErrorOutput(new ErrorOutput());
+    }
+
+    public static void like(OnPageAction action) {
+        if (!Action.getCurrentPage().equals("see details")) {
+            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+            return;
+        }
+
+        User user = new User(Action.getCurrentUser());
+        Movie currentMovie = Action.getCurrentMoviesList().get(0);
+
+        if (!user.getWatchedMovies().contains(currentMovie)) {
+            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+            return;
+        }
+
+        currentMovie = new Movie(Action.getCurrentMoviesList().get(0));
+        List<Movie> likedMovies = new ArrayList<>(user.getLikedMovies());
+
+        currentMovie.setNumLikes(currentMovie.getNumLikes() + 1);
+        likedMovies.add(currentMovie);
+
+        currentMovie.updateMovieInList(user.getPurchasedMovies());
+        currentMovie.updateMovieInList(user.getWatchedMovies());
+        currentMovie.updateMovieInList(user.getRatedMovies());
+        currentMovie.updateMovieInList(Action.getAppInput().getMovies());
+
+        Action.getCurrentMoviesList().set(0, currentMovie);
+        user.setLikedMovies(likedMovies);
+        Action.setCurrentUser(user);
+        action.setErrorOutput(new ErrorOutput());
+    }
+
+    public static void rate(OnPageAction action) {
+        if (!Action.getCurrentPage().equals("see details")) {
+            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+            return;
+        }
+
+        User user = new User(Action.getCurrentUser());
+        Movie currentMovie = Action.getCurrentMoviesList().get(0);
+
+        if (!user.getWatchedMovies().contains(currentMovie)) {
+            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+            return;
+        }
+
+        currentMovie = new Movie(Action.getCurrentMoviesList().get(0));
+        List<Movie> ratedMovies = new ArrayList<>(user.getRatedMovies());
+
+        currentMovie.setNumRatings(currentMovie.getNumRatings() + 1);
+        int sumRatings = currentMovie.getRating() * (currentMovie.getNumRatings() - 1)
+                + action.getRate();
+        currentMovie.setRating(sumRatings / currentMovie.getNumRatings());
+        ratedMovies.add(currentMovie);
+
+        currentMovie.updateMovieInList(user.getPurchasedMovies());
+        currentMovie.updateMovieInList(user.getWatchedMovies());
+        currentMovie.updateMovieInList(user.getLikedMovies());
+        currentMovie.updateMovieInList(Action.getAppInput().getMovies());
+
+
+        Action.getCurrentMoviesList().set(0, currentMovie);
+        user.setRatedMovies(ratedMovies);
+        Action.setCurrentUser(user);
+        action.setErrorOutput(new ErrorOutput());
     }
 }

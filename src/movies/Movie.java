@@ -1,5 +1,6 @@
 package movies;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Movie {
@@ -10,9 +11,34 @@ public class Movie {
     List<String> actors;
     List<String> countriesBanned;
 
-    private int rating;
     private int numLikes;
+    private int rating;
     private int numRatings;
+
+    public Movie() {
+
+    }
+
+    public Movie(Movie movie) {
+        this.name = movie.name;
+        this.year = movie.year;
+        this.duration = movie.duration;
+        this.genres = new ArrayList<>(movie.genres);
+        this.actors = new ArrayList<>(movie.actors);
+        this.countriesBanned = new ArrayList<>(movie.countriesBanned);
+        this.rating = movie.rating;
+        this.numLikes = movie.numLikes;
+        this.numRatings = movie.numRatings;
+    }
+
+    public void updateMovieInList(List<Movie> movieList) {
+        for (int i = 0; i < movieList.size(); i++) {
+            if (movieList.get(i).getName().equals(this.name)) {
+                movieList.set(i, this);
+                return;
+            }
+        }
+    }
 
     public String getName() {
         return name;
@@ -66,16 +92,16 @@ public class Movie {
         return rating;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
     public int getNumLikes() {
         return numLikes;
     }
 
     public void setNumLikes(int numLikes) {
         this.numLikes = numLikes;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public int getNumRatings() {

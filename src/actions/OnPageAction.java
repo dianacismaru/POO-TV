@@ -11,6 +11,7 @@ public final class OnPageAction extends Action {
         this.setCount(action.getCount());
         this.setStartsWith(action.getStartsWith());
         this.setFilters(action.getFilters());
+        this.setRate(action.getRate());
         this.setMovie(action.getMovie());
     }
 
@@ -51,15 +52,15 @@ public final class OnPageAction extends Action {
     }
 
     public void watch() {
-
+        DetailsPage.watch(this);
     }
 
     public void like() {
-
+        DetailsPage.like(this);
     }
 
     public void rate() {
-
+        DetailsPage.rate(this);
     }
 
     public void buyPremiumAccount() {

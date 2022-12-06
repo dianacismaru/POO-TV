@@ -21,7 +21,7 @@ public class Action implements Visitable {
     private Filters filters;
     private String movie;
     private String objectType;
-    private String rate;
+    private int rate;
 
     private ErrorOutput errorOutput;
     private static String currentPage;
@@ -112,11 +112,11 @@ public class Action implements Visitable {
         this.objectType = objectType;
     }
 
-    public String getRate() {
+    public int getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(int rate) {
         this.rate = rate;
     }
 
