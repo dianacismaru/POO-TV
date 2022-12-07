@@ -16,7 +16,11 @@ public final class DetailsPage extends Page {
             Action.setCurrentPage("see details");
 
             List<Movie> detailedMovie = new ArrayList<>();
-            for (Movie movie: Action.getCurrentMoviesList()) {
+            List<Movie> movieList = (Action.getFilteredMovieList() != null ?
+                                     Action.getFilteredMovieList()
+                                   : Action.getCurrentMoviesList());
+
+            for (Movie movie: movieList) {
                 if (movie.getName().equals(action.getMovie())) {
                     detailedMovie.add(movie);
                     break;
@@ -42,10 +46,8 @@ public final class DetailsPage extends Page {
 
         User user = new User(Action.getCurrentUser());
 
-        // TODO: nu are destule tokens sa cumpere?
-        // TODO daca filmul nu a fost gasit?
-
-        if (user.getNumFreePremiumMovies() > 0) {
+        if (user.getNumFreePremiumMovies() > 0
+                && user.getCredentials().getAccountType().equals("premium")) {
             user.setNumFreePremiumMovies(user.getNumFreePremiumMovies() - 1);
         } else {
             user.setTokensCount(user.getTokensCount() - 2);
@@ -66,8 +68,6 @@ public final class DetailsPage extends Page {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
         }
-
-        // TODO: if purchasedMovies.contains movie, atunci pot sa il vizionez
 
         User user = new User(Action.getCurrentUser());
         Movie currentMovie = Action.getCurrentMoviesList().get(0);
@@ -124,7 +124,7 @@ public final class DetailsPage extends Page {
         User user = new User(Action.getCurrentUser());
         Movie currentMovie = Action.getCurrentMoviesList().get(0);
 
-        if (!user.getWatchedMovies().contains(currentMovie)) {
+        if (!user.getWatchedMovies().contains(currentMovie) || action.getRate() > 5) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
         }

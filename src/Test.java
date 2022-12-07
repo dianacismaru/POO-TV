@@ -1,3 +1,4 @@
+import base.Main;
 import checker.Checkstyle;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -112,7 +113,7 @@ public final class Test {
      */
     public static void main(final String[] argv) {
         runTests();
-        preTestCleanUp();
+        //preTestCleanUp();
         System.exit(0);
     }
 
@@ -136,19 +137,13 @@ public final class Test {
         for (final File testFile : Objects.requireNonNull(TEST_INPUTS_FILE.listFiles())) {
             String testFileName = testFile.getName();
 
-            preTestCleanUp();
-
             final String[] testArgv = createTestArgv(testFile);
             final Future<Object> future = createTimerTask(testArgv);
 
             runTest(testFileName, config, future);
         }
 
-        boolean checkstylePassed = Checkstyle.testCheckstyle();
-        if (checkstylePassed) {
-            score += config.getCheckstyleScore();
-        }
-
+        score += Checkstyle.testCheckstyle();
         System.out.println("Total score: .......................... " + score + "/" + totalScore);
         System.out.println("Up to "
                 + manualScore

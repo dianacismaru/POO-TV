@@ -28,6 +28,7 @@ public class Action implements Visitable {
     private static User currentUser;
     private static List<Movie> currentMoviesList;
     private static AppInput appInput;
+    private static List<Movie> filteredMovieList;
 
     public void execute() {
         Action action;
@@ -158,6 +159,14 @@ public class Action implements Visitable {
 
     public static void setAppInput(AppInput appInput) {
         Action.appInput = appInput;
+    }
+
+    public static List<Movie> getFilteredMovieList() {
+        return filteredMovieList;
+    }
+
+    public static void setFilteredMovieList(List<Movie> filteredMovieList) {
+        Action.filteredMovieList = filteredMovieList;
     }
 
     @Override

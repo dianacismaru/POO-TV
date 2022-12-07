@@ -16,6 +16,11 @@ public final class MoviesPage extends Page {
     public static void movies(ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
+        if (currentPage.equals("movies")) {
+            action.setErrorOutput(new ErrorOutput());
+            return;
+        }
+
         if (currentPage.equals("loggedHomepage")
                 || currentPage.equals("see details")
                 || currentPage.equals("upgrades")) {
@@ -32,7 +37,8 @@ public final class MoviesPage extends Page {
             action.setErrorOutput(new ErrorOutput());
             return;
         }
-        action.setErrorOutput(new ErrorOutput("homepage"));
+
+        action.setErrorOutput(new ErrorOutput(currentPage));
     }
 
     public static void search(OnPageAction action) {
@@ -73,7 +79,7 @@ public final class MoviesPage extends Page {
                         }
                     }
                 }
-                // TODO: contains country ?
+
                 if (isMatching && contains.getGenre() != null) {
                     for (String genre: contains.getGenre()) {
                         if (!movie.getGenres().contains(genre)) {
@@ -82,21 +88,19 @@ public final class MoviesPage extends Page {
                         }
                     }
                 }
-
                 if (isMatching) {
                     filteredMovies.add(movie);
                 }
             }
         }
 
-        if (filteredMovies.isEmpty()) {
-            filteredMovies = new ArrayList<>(Action.getCurrentMoviesList());
-        }
-
         // nu mereu avem si rating si duration
         if (action.getFilters().getSort() != null) {
             Sort sortFilter = action.getFilters().getSort();
 
+            if (filteredMovies.isEmpty()) {
+                filteredMovies = new ArrayList<>(Action.getCurrentMoviesList());
+            }
             filteredMovies.sort(new Comparator<Movie>() {
                 @Override
                 public int compare(Movie movie1, Movie movie2) {
@@ -128,6 +132,7 @@ public final class MoviesPage extends Page {
             });
         }
 
+        Action.setFilteredMovieList(filteredMovies);
         action.setErrorOutput(new ErrorOutput());
         action.getErrorOutput().setCurrentMoviesList(filteredMovies);
     }

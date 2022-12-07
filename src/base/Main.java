@@ -11,30 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    static int ct = 0;
-
     public static void main(String[] args) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-
-        // TESTARE PARTICULARA
-        AppInput appInput = objectMapper.readValue(new File("checker/resources/in/basic_8.json"), AppInput.class);
-
-        // TESTARE COMPLETA
-        //AppInput appInput = objectMapper.readValue(new File(args[0]), AppInput.class);
+        AppInput appInput = objectMapper.readValue(new File(args[0]), AppInput.class);
 
         List<ErrorOutput> errorsOutput = new ArrayList<>();
         Action.setCurrentPage("homepage");
         Action.setAppInput(appInput);
         Action.setCurrentUser(null);
         Action.setCurrentMoviesList(null);
+        Action.setFilteredMovieList(null);
 
         for (Action action : appInput.getActions()) {
             action.execute();
 
-            debuggingMethod(action);
-
             if (hasOutput(action)) {
-                System.out.println("AVEM NOD");
                 errorsOutput.add(action.getErrorOutput());
             }
         }
@@ -42,7 +33,7 @@ public class Main {
         ArrayNode output = objectMapper.valueToTree(errorsOutput);
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
-        objectWriter.writeValue(new File("results.out"), output);
+        objectWriter.writeValue(new File(args[1]), output);
     }
 
     private static boolean hasOutput(Action action) {
@@ -64,22 +55,5 @@ public class Main {
         }
 
         return errorOutput.getError() != null;
-    }
-
-    private static void debuggingMethod(Action action) {
-        System.out.println("\ncomanda " + ++ct);
-        System.out.println("efectuez actiunea " + action.getType() + " " + action.getPage());
-
-        if (action.getType().equals("on page")) {
-            System.out.println("cu feature: " + action.getFeature());
-        }
-
-        System.out.println("si am ajuns in pagina " + Action.getCurrentPage());
-
-        if (Action.getCurrentUser() != null)
-            System.out.println("utilizator curent: " + Action.getCurrentUser().getCredentials().getName());
-
-        if (action.getErrorOutput().getError() != null)
-            System.out.println(action.getErrorOutput().getError());
     }
 }
