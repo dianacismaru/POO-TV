@@ -1,4 +1,4 @@
-package base.filters;
+package basefiles.filters;
 
 import java.util.List;
 
@@ -17,10 +17,6 @@ public class Contains {
 
     public List<String> getGenre() {
         return genre;
-    }
-
-    public void setGenre(List<String> genre) {
-        this.genre = genre;
     }
 
     public List<String> getCountry() {

@@ -58,15 +58,4 @@ public class Credentials {
     public void setBalance(String balance) {
         this.balance = balance;
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "name='" + name + '\'' +
-                ",\n password='" + password + '\'' +
-                ",\n accountType='" + accountType + '\'' +
-                ",\n country='" + country + '\'' +
-                ",\n balance='" + balance + '\'' +
-                "}\n";
-    }
 }

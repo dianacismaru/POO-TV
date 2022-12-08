@@ -3,18 +3,20 @@ package pages;
 import actions.Action;
 import actions.ChangePageAction;
 import actions.OnPageAction;
-import base.ErrorOutput;
+import basefiles.ErrorOutput;
 import users.User;
 
-public class UpgradesPage extends Page {
+public final class UpgradesPage extends Page {
+    private static final int PRICE_FOR_PREMIUM_ACCOUNT = 10;
+
     public static void upgrades(ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
-        if (currentPage.equals("loggedHomepage")
-                || currentPage.equals("see details")) {
-            Action.setCurrentPage("upgrades");
+        if (currentPage.equals(LOGGED_HOME_PAGE)
+                || currentPage.equals(SEE_DETAILS_PAGE)) {
+            Action.setCurrentPage(UPGRADES_PAGE);
         } else {
-            action.setErrorOutput(new ErrorOutput("homepage"));
+            action.setErrorOutput(new ErrorOutput(HOME_PAGE));
         }
     }
 
@@ -36,7 +38,7 @@ public class UpgradesPage extends Page {
         User user = new User(Action.getCurrentUser());
 
         user.getCredentials().setAccountType("premium");
-        user.setTokensCount(user.getTokensCount() - 10);
+        user.setTokensCount(user.getTokensCount() - PRICE_FOR_PREMIUM_ACCOUNT);
 
         Action.setCurrentUser(user);
         action.setErrorOutput(new ErrorOutput());

@@ -19,7 +19,7 @@ public class Movie {
 
     }
 
-    public Movie(Movie movie) {
+    public Movie(final Movie movie) {
         this.name = movie.name;
         this.year = movie.year;
         this.duration = movie.duration;
@@ -31,7 +31,7 @@ public class Movie {
         this.numRatings = movie.numRatings;
     }
 
-    public void updateMovieInList(List<Movie> movieList) {
+    public void updateMovieInList(final List<Movie> movieList) {
         for (int i = 0; i < movieList.size(); i++) {
             if (movieList.get(i).getName().equals(this.name)) {
                 movieList.set(i, this);

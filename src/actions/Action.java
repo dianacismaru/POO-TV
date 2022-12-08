@@ -1,17 +1,15 @@
 package actions;
 
-import base.AppInput;
-import base.ErrorOutput;
-import base.filters.Filters;
+import basefiles.AppInput;
+import basefiles.ErrorOutput;
+import basefiles.filters.Filters;
 import movies.Movie;
 import users.Credentials;
 import users.User;
-import visitor.ClientVisitor;
-import visitor.Visitable;
 
 import java.util.List;
 
-public class Action implements Visitable {
+public class Action {
     private String type;
     private String page;
     private String feature;
@@ -31,14 +29,11 @@ public class Action implements Visitable {
     private static List<Movie> filteredMovieList;
 
     public void execute() {
-        Action action;
-        if (type.equals("change page")) {
-            action = new ChangePageAction(this);
-        } else {
-            action = new OnPageAction(this);
-        }
+        Action action = (type.equals("change page") ?
+                            new ChangePageAction(this)
+                          : new OnPageAction(this));
         action.execute();
-        this.setErrorOutput(action.getErrorOutput());
+        setErrorOutput(action.getErrorOutput());
     }
 
     public String getType() {
@@ -167,10 +162,5 @@ public class Action implements Visitable {
 
     public static void setFilteredMovieList(List<Movie> filteredMovieList) {
         Action.filteredMovieList = filteredMovieList;
-    }
-
-    @Override
-    public void accept(ClientVisitor visitor) {
-        visitor.visit(this);
     }
 }

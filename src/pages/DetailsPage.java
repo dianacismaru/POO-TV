@@ -3,7 +3,7 @@ package pages;
 import actions.Action;
 import actions.ChangePageAction;
 import actions.OnPageAction;
-import base.ErrorOutput;
+import basefiles.ErrorOutput;
 import movies.Movie;
 import users.User;
 

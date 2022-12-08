@@ -3,9 +3,9 @@ package pages;
 import actions.Action;
 import actions.ChangePageAction;
 import actions.OnPageAction;
-import base.ErrorOutput;
-import base.filters.Contains;
-import base.filters.Sort;
+import basefiles.ErrorOutput;
+import basefiles.filters.Contains;
+import basefiles.filters.Sort;
 import movies.Movie;
 
 import java.util.ArrayList;
@@ -16,15 +16,15 @@ public final class MoviesPage extends Page {
     public static void movies(ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
-        if (currentPage.equals("movies")) {
+        if (currentPage.equals(MOVIES_PAGE)) {
             action.setErrorOutput(new ErrorOutput());
             return;
         }
 
-        if (currentPage.equals("loggedHomepage")
-                || currentPage.equals("see details")
-                || currentPage.equals("upgrades")) {
-            Action.setCurrentPage("movies");
+        if (currentPage.equals(LOGGED_HOME_PAGE)
+                || currentPage.equals(SEE_DETAILS_PAGE)
+                || currentPage.equals(UPGRADES_PAGE)) {
+            Action.setCurrentPage(MOVIES_PAGE);
 
             List<Movie> movies = new ArrayList<>();
             String currentUserCountry = Action.getCurrentUser().getCredentials().getCountry();
@@ -42,7 +42,7 @@ public final class MoviesPage extends Page {
     }
 
     public static void search(OnPageAction action) {
-        if (!Action.getCurrentPage().equals("movies")) {
+        if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
         }
@@ -59,7 +59,7 @@ public final class MoviesPage extends Page {
     }
 
     public static void filter(OnPageAction action) {
-        if (!Action.getCurrentPage().equals("movies")) {
+        if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
         }
@@ -94,7 +94,6 @@ public final class MoviesPage extends Page {
             }
         }
 
-        // nu mereu avem si rating si duration
         if (action.getFilters().getSort() != null) {
             Sort sortFilter = action.getFilters().getSort();
 
@@ -104,7 +103,7 @@ public final class MoviesPage extends Page {
             filteredMovies.sort(new Comparator<Movie>() {
                 @Override
                 public int compare(Movie movie1, Movie movie2) {
-                    int comparator = 0;
+                    int comparator;
 
                     if (sortFilter.getDuration() != null) {
                         if (sortFilter.getDuration().equals("increasing")) {

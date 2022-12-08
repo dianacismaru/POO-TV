@@ -1,12 +1,17 @@
 package actions;
 
-import base.ErrorOutput;
-import pages.DetailsPage;
-import pages.MoviesPage;
-import pages.UpgradesPage;
+import basefiles.ErrorOutput;
+import pages.*;
+
+import static pages.Page.LOGIN_PAGE;
+import static pages.Page.LOGOUT_PAGE;
+import static pages.Page.MOVIES_PAGE;
+import static pages.Page.REGISTER_PAGE;
+import static pages.Page.SEE_DETAILS_PAGE;
+import static pages.Page.UPGRADES_PAGE;
 
 public final class ChangePageAction extends Action {
-    public ChangePageAction(Action action) {
+    public ChangePageAction(final Action action) {
         this.setType(action.getType());
         this.setPage(action.getPage());
         this.setMovie(action.getMovie());
@@ -16,29 +21,21 @@ public final class ChangePageAction extends Action {
     @Override
     public void execute() {
         switch (this.getPage()) {
-            case "login" -> login();
-            case "register" -> register();
-            case "movies" -> movies();
-            case "see details" -> seeDetails();
-            case "upgrades" -> upgrades();
-            case "logout" -> logout();
+            case LOGIN_PAGE -> login();
+            case REGISTER_PAGE -> register();
+            case MOVIES_PAGE -> movies();
+            case SEE_DETAILS_PAGE -> seeDetails();
+            case UPGRADES_PAGE -> upgrades();
+            case LOGOUT_PAGE -> logout();
         }
     }
 
     public void login() {
-        if (getCurrentPage().equals("homepage")) {
-            setCurrentPage("login");
-        } else {
-            setErrorOutput(new ErrorOutput(getCurrentPage()));
-        }
+        LoginPage.login(this);
     }
 
     public void register() {
-        if (getCurrentPage().equals("homepage")) {
-            setCurrentPage("register");
-        } else {
-            setErrorOutput(new ErrorOutput("homepage"));
-        }
+        RegisterPage.register(this);
     }
 
     public void movies() {
@@ -54,15 +51,6 @@ public final class ChangePageAction extends Action {
     }
 
     public void logout() {
-        if (getCurrentPage().equals("loggedHomepage")
-                || getCurrentPage().equals("see details")
-                || getCurrentPage().equals("upgrades")
-                || getCurrentPage().equals("movies")) {
-            setCurrentPage("homepage");
-            setCurrentUser(null);
-            setCurrentMoviesList(null);
-        } else {
-            setErrorOutput(new ErrorOutput("homepage"));
-        }
+        LogoutPage.logout(this);
     }
 }

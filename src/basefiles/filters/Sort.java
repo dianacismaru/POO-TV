@@ -1,4 +1,4 @@
-package base.filters;
+package basefiles.filters;
 
 public class Sort {
     private String rating;
