@@ -2,6 +2,7 @@ package movies;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.text.DecimalFormat;
 
 public class Movie {
     private String name;
@@ -12,7 +13,7 @@ public class Movie {
     List<String> countriesBanned;
 
     private int numLikes;
-    private int rating;
+    private double rating = 0.00;
     private int numRatings;
 
     public Movie() {
@@ -88,10 +89,6 @@ public class Movie {
         this.countriesBanned = countriesBanned;
     }
 
-    public int getRating() {
-        return rating;
-    }
-
     public int getNumLikes() {
         return numLikes;
     }
@@ -100,7 +97,11 @@ public class Movie {
         this.numLikes = numLikes;
     }
 
-    public void setRating(int rating) {
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

@@ -60,9 +60,14 @@ public final class Application {
             return true;
         }
 
-        if (errorOutput.getError() == null
+       /* if (errorOutput.getError() == null
                 && (action.getPage().equals("movies")
                 || action.getPage().equals("see details"))) {
+            return true;
+        }*/
+        if (errorOutput.getError() == null
+                && (Action.getCurrentPage().equals("movies")
+                || Action.getCurrentPage().equals("see details"))) {
             return true;
         }
 

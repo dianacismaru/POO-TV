@@ -133,7 +133,7 @@ public final class DetailsPage extends Page {
         List<Movie> ratedMovies = new ArrayList<>(user.getRatedMovies());
 
         currentMovie.setNumRatings(currentMovie.getNumRatings() + 1);
-        int sumRatings = currentMovie.getRating() * (currentMovie.getNumRatings() - 1)
+        double sumRatings = currentMovie.getRating() * (currentMovie.getNumRatings() - 1)
                 + action.getRate();
         currentMovie.setRating(sumRatings / currentMovie.getNumRatings());
         ratedMovies.add(currentMovie);

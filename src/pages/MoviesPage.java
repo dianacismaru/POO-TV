@@ -118,9 +118,9 @@ public final class MoviesPage extends Page {
 
                     if (sortFilter.getRating() != null) {
                         if (sortFilter.getRating().equals("increasing")) {
-                            comparator = movie1.getRating() - movie2.getRating();
+                            comparator = (int) (movie1.getRating() - movie2.getRating());
                         } else {
-                            comparator = movie2.getRating() - movie1.getRating();
+                            comparator = (int) (movie2.getRating() - movie1.getRating());
                         }
 
                         return comparator;
