@@ -4,9 +4,9 @@ import actions.Action;
 import actions.ChangePageAction;
 import basefiles.ErrorOutput;
 
-public class LogoutPage extends Page {
+public final class LogoutPage extends Page {
     @Override
-    public void changePage(ChangePageAction action) {
+    public void changePage(final ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(LOGGED_HOME_PAGE)

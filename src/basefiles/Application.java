@@ -15,6 +15,10 @@ public final class Application {
 
     }
 
+    /**
+     * Maintain a single instance of an application throughout the program
+     * @return  the application instance
+     */
     public static Application getInstance() {
         if (instance == null) {
             instance = new Application();
@@ -22,6 +26,11 @@ public final class Application {
         return instance;
     }
 
+    /**
+     * Start the POO-TV application
+     * @param appInput  the input
+     * @return          the list of errors that will be mapped in the JSON output file
+     */
     public List<ErrorOutput> start(final AppInput appInput) {
         initialize(appInput);
         return execute(appInput);
@@ -60,11 +69,6 @@ public final class Application {
             return true;
         }
 
-       /* if (errorOutput.getError() == null
-                && (action.getPage().equals("movies")
-                || action.getPage().equals("see details"))) {
-            return true;
-        }*/
         if (errorOutput.getError() == null
                 && (Action.getCurrentPage().equals("movies")
                 || Action.getCurrentPage().equals("see details"))) {

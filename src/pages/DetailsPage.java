@@ -14,7 +14,7 @@ public final class DetailsPage extends Page {
     private static final int MAXIMUM_RATING = 5;
 
     @Override
-    public void changePage(ChangePageAction action) {
+    public void changePage(final ChangePageAction action) {
         if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
         }
@@ -41,6 +41,10 @@ public final class DetailsPage extends Page {
         }
     }
 
+    /**
+     * Purchase the current movie shown in the list, for the current user
+     * @param action the current action
+     */
     public static void purchase(final OnPageAction action) {
         if (!Action.getCurrentPage().equals("see details")) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
@@ -66,6 +70,10 @@ public final class DetailsPage extends Page {
         action.getErrorOutput().setCurrentUser(user);
     }
 
+    /**
+     * Watch a purchased movie
+     * @param action the current action
+     */
     public static void watch(final OnPageAction action) {
         if (!Action.getCurrentPage().equals("see details")) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
@@ -87,6 +95,10 @@ public final class DetailsPage extends Page {
         action.setErrorOutput(new ErrorOutput());
     }
 
+    /**
+     * Give a like for a watched movie
+     * @param action the current action
+     */
     public static void like(final OnPageAction action) {
         if (!Action.getCurrentPage().equals("see details")) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
@@ -118,6 +130,10 @@ public final class DetailsPage extends Page {
         action.setErrorOutput(new ErrorOutput());
     }
 
+    /**
+     * Give a rate for a watched movie
+     * @param action the current action
+     */
     public static void rate(final OnPageAction action) {
         if (!Action.getCurrentPage().equals("see details")) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));

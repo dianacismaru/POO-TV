@@ -14,7 +14,7 @@ import java.util.List;
 
 public final class MoviesPage extends Page {
     @Override
-    public void changePage(ChangePageAction action) {
+    public void changePage(final ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(MOVIES_PAGE)) {
@@ -42,6 +42,10 @@ public final class MoviesPage extends Page {
         action.setErrorOutput(new ErrorOutput(currentPage));
     }
 
+    /**
+     * Search for the movies that start with the specified substring
+     * @param action the current action
+     */
     public static void search(final OnPageAction action) {
         if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
@@ -59,6 +63,10 @@ public final class MoviesPage extends Page {
         action.getErrorOutput().setCurrentMoviesList(filteredMovies);
     }
 
+    /**
+     * Filter through the movies by the specified criteria
+     * @param action the current action
+     */
     public static void filter(final OnPageAction action) {
         if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));

@@ -8,7 +8,7 @@ import users.User;
 
 public final class RegisterPage extends Page {
     @Override
-    public void changePage(ChangePageAction action) {
+    public void changePage(final ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(HOME_PAGE)) {
@@ -18,6 +18,10 @@ public final class RegisterPage extends Page {
         action.setErrorOutput(new ErrorOutput(HOME_PAGE));
     }
 
+    /**
+     * Register the specified user into the application's database
+     * @param action the current action
+     */
     public static void register(final OnPageAction action) {
         if (!Action.getCurrentPage().equals(REGISTER_PAGE)) {
             action.setErrorOutput(new ErrorOutput(HOME_PAGE));

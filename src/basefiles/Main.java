@@ -13,6 +13,9 @@ public final class Main {
 
     }
 
+    /**
+     * @param args the String array that contains the input and the output files
+     */
     public static void main(final String[] args) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         AppInput appInput = objectMapper.readValue(new File(args[0]), AppInput.class);

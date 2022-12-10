@@ -8,7 +8,7 @@ import users.User;
 
 public final class LoginPage extends Page {
     @Override
-    public void changePage(ChangePageAction action) {
+    public void changePage(final ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(HOME_PAGE)) {
@@ -18,6 +18,10 @@ public final class LoginPage extends Page {
         action.setErrorOutput(new ErrorOutput(currentPage));
     }
 
+    /**
+     * Login the specified user into the application
+     * @param action the current action
+     */
     public static void login(final OnPageAction action) {
         if (!Action.getCurrentPage().equals(LOGIN_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));

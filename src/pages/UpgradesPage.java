@@ -10,7 +10,7 @@ public final class UpgradesPage extends Page {
     private static final int PRICE_FOR_PREMIUM_ACCOUNT = 10;
 
     @Override
-    public void changePage(ChangePageAction action) {
+    public void changePage(final ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(LOGGED_HOME_PAGE)
@@ -21,6 +21,10 @@ public final class UpgradesPage extends Page {
         }
     }
 
+    /**
+     * Buy the specified amount of tokens for the current user, using its balance
+     * @param action the current action
+     */
     public static void buyTokens(final OnPageAction action) {
         User user = new User(Action.getCurrentUser());
         int currentBalance = Integer.parseInt(user.getCredentials().getBalance());
@@ -35,6 +39,10 @@ public final class UpgradesPage extends Page {
 
     }
 
+    /**
+     * Buy a premium account for the current user, using 10 tokens
+     * @param action the current action
+     */
     public static void buyPremiumAccount(final OnPageAction action) {
         User user = new User(Action.getCurrentUser());
 

@@ -12,5 +12,9 @@ public abstract class Page {
     public static final String UPGRADES_PAGE = "upgrades";
     public static final String LOGOUT_PAGE = "logout";
 
+    /**
+     * Change the current page in the application
+     * @param action    the current action
+     */
     public abstract void changePage(ChangePageAction action);
 }
