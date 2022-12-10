@@ -9,7 +9,7 @@ import users.User;
 public final class UpgradesPage extends Page {
     private static final int PRICE_FOR_PREMIUM_ACCOUNT = 10;
 
-    public static void upgrades(ChangePageAction action) {
+    public static void upgrades(final ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(LOGGED_HOME_PAGE)
@@ -20,7 +20,7 @@ public final class UpgradesPage extends Page {
         }
     }
 
-    public static void buyTokens(OnPageAction action) {
+    public static void buyTokens(final OnPageAction action) {
         User user = new User(Action.getCurrentUser());
         int currentBalance = Integer.parseInt(user.getCredentials().getBalance());
         int countTokens = action.getCount();
@@ -34,7 +34,7 @@ public final class UpgradesPage extends Page {
 
     }
 
-    public static void buyPremiumAccount(OnPageAction action) {
+    public static void buyPremiumAccount(final OnPageAction action) {
         User user = new User(Action.getCurrentUser());
 
         user.getCredentials().setAccountType("premium");

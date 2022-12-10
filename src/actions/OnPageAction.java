@@ -1,9 +1,13 @@
 package actions;
 
-import pages.*;
+import pages.DetailsPage;
+import pages.LoginPage;
+import pages.MoviesPage;
+import pages.RegisterPage;
+import pages.UpgradesPage;
 
 public final class OnPageAction extends Action {
-    public OnPageAction(Action action) {
+    public OnPageAction(final Action action) {
         this.setType(action.getType());
         this.setPage(action.getPage());
         this.setFeature(action.getFeature());
@@ -28,6 +32,7 @@ public final class OnPageAction extends Action {
             case "rate" -> rate();
             case "buy premium account" -> buyPremiumAccount();
             case "buy tokens" -> buyTokens();
+            default -> System.out.println(INVALID_CASE);
         }
     }
 

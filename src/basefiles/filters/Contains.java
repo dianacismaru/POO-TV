@@ -2,7 +2,7 @@ package basefiles.filters;
 
 import java.util.List;
 
-public class Contains {
+public final class Contains {
     private List<String> actors;
     private List<String> genre;
     private List<String> country;
@@ -11,7 +11,7 @@ public class Contains {
         return actors;
     }
 
-    public void setActors(List<String> actors) {
+    public void setActors(final List<String> actors) {
         this.actors = actors;
     }
 
@@ -23,7 +23,7 @@ public class Contains {
         return country;
     }
 
-    public void setCountry(List<String> country) {
+    public void setCountry(final List<String> country) {
         this.country = country;
     }
 }

@@ -7,7 +7,7 @@ import basefiles.ErrorOutput;
 import users.User;
 
 public final class LoginPage extends Page {
-    public static void login(ChangePageAction action) {
+    public static void login(final ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(HOME_PAGE)) {
@@ -17,7 +17,7 @@ public final class LoginPage extends Page {
         action.setErrorOutput(new ErrorOutput(currentPage));
     }
 
-    public static void login(OnPageAction action) {
+    public static void login(final OnPageAction action) {
         if (!Action.getCurrentPage().equals(LOGIN_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;

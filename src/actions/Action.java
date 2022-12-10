@@ -4,7 +4,7 @@ import basefiles.AppInput;
 import basefiles.ErrorOutput;
 import basefiles.filters.Filters;
 import movies.Movie;
-import users.Credentials;
+import basefiles.Credentials;
 import users.User;
 
 import java.util.List;
@@ -18,7 +18,6 @@ public class Action {
     private String startsWith;
     private Filters filters;
     private String movie;
-    private String objectType;
     private int rate;
 
     private ErrorOutput errorOutput;
@@ -28,10 +27,15 @@ public class Action {
     private static AppInput appInput;
     private static List<Movie> filteredMovieList;
 
+    protected static final String INVALID_CASE = "Invalid case!";
+
+    /**
+     * Execute an input action, depending on its subclass
+     */
     public void execute() {
-        Action action = (type.equals("change page") ?
-                            new ChangePageAction(this)
-                          : new OnPageAction(this));
+        Action action = (type.equals("change page")
+                         ? new ChangePageAction(this)
+                         : new OnPageAction(this));
         action.execute();
         setErrorOutput(action.getErrorOutput());
     }
@@ -40,7 +44,7 @@ public class Action {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -48,7 +52,7 @@ public class Action {
         return page;
     }
 
-    public void setPage(String page) {
+    public void setPage(final String page) {
         this.page = page;
     }
 
@@ -56,7 +60,7 @@ public class Action {
         return feature;
     }
 
-    public void setFeature(String feature) {
+    public void setFeature(final String feature) {
         this.feature = feature;
     }
 
@@ -64,7 +68,7 @@ public class Action {
         return credentials;
     }
 
-    public void setCredentials(Credentials credentials) {
+    public void setCredentials(final Credentials credentials) {
         this.credentials = credentials;
     }
 
@@ -72,7 +76,7 @@ public class Action {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(final int count) {
         this.count = count;
     }
 
@@ -80,7 +84,7 @@ public class Action {
         return startsWith;
     }
 
-    public void setStartsWith(String startsWith) {
+    public void setStartsWith(final String startsWith) {
         this.startsWith = startsWith;
     }
 
@@ -88,7 +92,7 @@ public class Action {
         return filters;
     }
 
-    public void setFilters(Filters filters) {
+    public void setFilters(final Filters filters) {
         this.filters = filters;
     }
 
@@ -96,23 +100,15 @@ public class Action {
         return movie;
     }
 
-    public void setMovie(String movie) {
+    public void setMovie(final String movie) {
         this.movie = movie;
-    }
-
-    public String getObjectType() {
-        return objectType;
-    }
-
-    public void setObjectType(String objectType) {
-        this.objectType = objectType;
     }
 
     public int getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(final int rate) {
         this.rate = rate;
     }
 
@@ -120,7 +116,7 @@ public class Action {
         return errorOutput;
     }
 
-    public void setErrorOutput(ErrorOutput errorOutput) {
+    public void setErrorOutput(final ErrorOutput errorOutput) {
         this.errorOutput = errorOutput;
     }
 
@@ -128,7 +124,7 @@ public class Action {
         return currentPage;
     }
 
-    public static void setCurrentPage(String currentPage) {
+    public static void setCurrentPage(final String currentPage) {
         Action.currentPage = currentPage;
     }
 
@@ -136,7 +132,7 @@ public class Action {
         return currentUser;
     }
 
-    public static void setCurrentUser(User currentUser) {
+    public static void setCurrentUser(final User currentUser) {
         Action.currentUser = currentUser;
     }
 
@@ -144,7 +140,7 @@ public class Action {
         return currentMoviesList;
     }
 
-    public static void setCurrentMoviesList(List<Movie> currentMoviesList) {
+    public static void setCurrentMoviesList(final List<Movie> currentMoviesList) {
         Action.currentMoviesList = currentMoviesList;
     }
 
@@ -152,7 +148,7 @@ public class Action {
         return appInput;
     }
 
-    public static void setAppInput(AppInput appInput) {
+    public static void setAppInput(final AppInput appInput) {
         Action.appInput = appInput;
     }
 
@@ -160,7 +156,7 @@ public class Action {
         return filteredMovieList;
     }
 
-    public static void setFilteredMovieList(List<Movie> filteredMovieList) {
+    public static void setFilteredMovieList(final List<Movie> filteredMovieList) {
         Action.filteredMovieList = filteredMovieList;
     }
 }

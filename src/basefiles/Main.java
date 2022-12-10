@@ -9,7 +9,11 @@ import java.io.IOException;
 import java.util.List;
 
 public final class Main {
-    public static void main(String[] args) throws IOException {
+    private Main() {
+
+    }
+
+    public static void main(final String[] args) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         AppInput appInput = objectMapper.readValue(new File(args[0]), AppInput.class);
 

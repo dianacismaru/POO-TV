@@ -11,14 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class DetailsPage extends Page {
-    public static void seeDetails(ChangePageAction action) {
+    private static final int MAXIMUM_RATING = 5;
+
+    public static void seeDetails(final ChangePageAction action) {
         if (Action.getCurrentPage().equals("movies")) {
             Action.setCurrentPage("see details");
 
             List<Movie> detailedMovie = new ArrayList<>();
-            List<Movie> movieList = (Action.getFilteredMovieList() != null ?
-                                     Action.getFilteredMovieList()
-                                   : Action.getCurrentMoviesList());
+            List<Movie> movieList = (Action.getFilteredMovieList() != null
+                                    ? Action.getFilteredMovieList()
+                                    : Action.getCurrentMoviesList());
 
             for (Movie movie: movieList) {
                 if (movie.getName().equals(action.getMovie())) {
@@ -38,7 +40,7 @@ public final class DetailsPage extends Page {
         action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
     }
 
-    public static void purchase(OnPageAction action) {
+    public static void purchase(final OnPageAction action) {
         if (!Action.getCurrentPage().equals("see details")) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
@@ -63,7 +65,7 @@ public final class DetailsPage extends Page {
         action.getErrorOutput().setCurrentUser(user);
     }
 
-    public static void watch(OnPageAction action) {
+    public static void watch(final OnPageAction action) {
         if (!Action.getCurrentPage().equals("see details")) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
@@ -84,7 +86,7 @@ public final class DetailsPage extends Page {
         action.setErrorOutput(new ErrorOutput());
     }
 
-    public static void like(OnPageAction action) {
+    public static void like(final OnPageAction action) {
         if (!Action.getCurrentPage().equals("see details")) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
@@ -115,7 +117,7 @@ public final class DetailsPage extends Page {
         action.setErrorOutput(new ErrorOutput());
     }
 
-    public static void rate(OnPageAction action) {
+    public static void rate(final OnPageAction action) {
         if (!Action.getCurrentPage().equals("see details")) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
@@ -124,7 +126,7 @@ public final class DetailsPage extends Page {
         User user = new User(Action.getCurrentUser());
         Movie currentMovie = Action.getCurrentMoviesList().get(0);
 
-        if (!user.getWatchedMovies().contains(currentMovie) || action.getRate() > 5) {
+        if (!user.getWatchedMovies().contains(currentMovie) || action.getRate() > MAXIMUM_RATING) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
         }

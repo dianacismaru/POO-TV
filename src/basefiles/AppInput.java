@@ -15,7 +15,7 @@ public final class AppInput {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(final List<User> users) {
         this.users = users;
     }
 
@@ -23,7 +23,7 @@ public final class AppInput {
         return movies;
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(final List<Movie> movies) {
         this.movies = movies;
     }
 
@@ -31,7 +31,7 @@ public final class AppInput {
         return actions;
     }
 
-    public void setActions(List<Action> actions) {
+    public void setActions(final List<Action> actions) {
         this.actions = actions;
     }
 }

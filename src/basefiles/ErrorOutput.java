@@ -22,7 +22,7 @@ public final class ErrorOutput {
         this.currentUser = Action.getCurrentUser();
     }
 
-    public ErrorOutput(String currentPage) {
+    public ErrorOutput(final String currentPage) {
         this();
         this.error = "Error";
         this.currentMoviesList = new ArrayList<>();
@@ -34,7 +34,7 @@ public final class ErrorOutput {
         return error;
     }
 
-    public void setError(String error) {
+    public void setError(final String error) {
         this.error = error;
     }
 
@@ -42,7 +42,7 @@ public final class ErrorOutput {
         return currentMoviesList;
     }
 
-    public void setCurrentMoviesList(List<Movie> currentMoviesList) {
+    public void setCurrentMoviesList(final List<Movie> currentMoviesList) {
         this.currentMoviesList = currentMoviesList;
     }
 
@@ -50,7 +50,7 @@ public final class ErrorOutput {
         return currentUser;
     }
 
-    public void setCurrentUser(User currentUser) {
+    public void setCurrentUser(final User currentUser) {
         this.currentUser = currentUser;
     }
 }

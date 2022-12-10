@@ -2,15 +2,14 @@ package movies;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.text.DecimalFormat;
 
-public class Movie {
+public final class Movie {
     private String name;
     private int year;
     private int duration;
-    List<String> genres;
-    List<String> actors;
-    List<String> countriesBanned;
+    private List<String> genres;
+    private List<String> actors;
+    private List<String> countriesBanned;
 
     private int numLikes;
     private double rating = 0.00;
@@ -32,6 +31,10 @@ public class Movie {
         this.numRatings = movie.numRatings;
     }
 
+    /**
+     * Reset the current movie in a specified list
+     * @param movieList the list that is parsed
+     */
     public void updateMovieInList(final List<Movie> movieList) {
         for (int i = 0; i < movieList.size(); i++) {
             if (movieList.get(i).getName().equals(this.name)) {
@@ -45,7 +48,7 @@ public class Movie {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -53,7 +56,7 @@ public class Movie {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(final int year) {
         this.year = year;
     }
 
@@ -61,7 +64,7 @@ public class Movie {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(final int duration) {
         this.duration = duration;
     }
 
@@ -69,7 +72,7 @@ public class Movie {
         return genres;
     }
 
-    public void setGenres(List<String>  genres) {
+    public void setGenres(final List<String>  genres) {
         this.genres = genres;
     }
 
@@ -77,7 +80,7 @@ public class Movie {
         return actors;
     }
 
-    public void setActors(List<String> actors) {
+    public void setActors(final List<String> actors) {
         this.actors = actors;
     }
 
@@ -85,7 +88,7 @@ public class Movie {
         return countriesBanned;
     }
 
-    public void setCountriesBanned(List<String> countriesBanned) {
+    public void setCountriesBanned(final List<String> countriesBanned) {
         this.countriesBanned = countriesBanned;
     }
 
@@ -93,7 +96,7 @@ public class Movie {
         return numLikes;
     }
 
-    public void setNumLikes(int numLikes) {
+    public void setNumLikes(final int numLikes) {
         this.numLikes = numLikes;
     }
 
@@ -101,7 +104,7 @@ public class Movie {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(final double rating) {
         this.rating = rating;
     }
 
@@ -109,7 +112,7 @@ public class Movie {
         return numRatings;
     }
 
-    public void setNumRatings(int numRatings) {
+    public void setNumRatings(final int numRatings) {
         this.numRatings = numRatings;
     }
 }

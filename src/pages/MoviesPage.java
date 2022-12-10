@@ -13,7 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public final class MoviesPage extends Page {
-    public static void movies(ChangePageAction action) {
+    public static void movies(final ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(MOVIES_PAGE)) {
@@ -41,7 +41,7 @@ public final class MoviesPage extends Page {
         action.setErrorOutput(new ErrorOutput(currentPage));
     }
 
-    public static void search(OnPageAction action) {
+    public static void search(final OnPageAction action) {
         if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
@@ -58,7 +58,7 @@ public final class MoviesPage extends Page {
         action.getErrorOutput().setCurrentMoviesList(filteredMovies);
     }
 
-    public static void filter(OnPageAction action) {
+    public static void filter(final OnPageAction action) {
         if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
             return;
@@ -102,7 +102,7 @@ public final class MoviesPage extends Page {
             }
             filteredMovies.sort(new Comparator<Movie>() {
                 @Override
-                public int compare(Movie movie1, Movie movie2) {
+                public int compare(final Movie movie1, final Movie movie2) {
                     int comparator;
 
                     if (sortFilter.getDuration() != null) {

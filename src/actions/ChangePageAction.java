@@ -1,7 +1,12 @@
 package actions;
 
 import basefiles.ErrorOutput;
-import pages.*;
+import pages.DetailsPage;
+import pages.LoginPage;
+import pages.LogoutPage;
+import pages.MoviesPage;
+import pages.RegisterPage;
+import pages.UpgradesPage;
 
 import static pages.Page.LOGIN_PAGE;
 import static pages.Page.LOGOUT_PAGE;
@@ -27,6 +32,7 @@ public final class ChangePageAction extends Action {
             case SEE_DETAILS_PAGE -> seeDetails();
             case UPGRADES_PAGE -> upgrades();
             case LOGOUT_PAGE -> logout();
+            default -> System.out.println(INVALID_CASE);
         }
     }
 

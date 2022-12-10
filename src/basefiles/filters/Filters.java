@@ -1,6 +1,6 @@
 package basefiles.filters;
 
-public class Filters {
+public final class Filters {
     private Sort sort;
     private Contains contains;
 
