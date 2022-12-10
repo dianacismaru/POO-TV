@@ -9,7 +9,8 @@ import users.User;
 public final class UpgradesPage extends Page {
     private static final int PRICE_FOR_PREMIUM_ACCOUNT = 10;
 
-    public static void upgrades(final ChangePageAction action) {
+    @Override
+    public void changePage(ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(LOGGED_HOME_PAGE)

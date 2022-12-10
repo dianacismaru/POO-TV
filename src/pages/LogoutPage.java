@@ -5,7 +5,8 @@ import actions.ChangePageAction;
 import basefiles.ErrorOutput;
 
 public class LogoutPage extends Page {
-    public static void logout(final ChangePageAction action) {
+    @Override
+    public void changePage(ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(LOGGED_HOME_PAGE)

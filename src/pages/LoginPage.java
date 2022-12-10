@@ -7,7 +7,8 @@ import basefiles.ErrorOutput;
 import users.User;
 
 public final class LoginPage extends Page {
-    public static void login(final ChangePageAction action) {
+    @Override
+    public void changePage(ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(HOME_PAGE)) {

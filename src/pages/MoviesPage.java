@@ -13,7 +13,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public final class MoviesPage extends Page {
-    public static void movies(final ChangePageAction action) {
+    @Override
+    public void changePage(ChangePageAction action) {
         String currentPage = Action.getCurrentPage();
 
         if (currentPage.equals(MOVIES_PAGE)) {

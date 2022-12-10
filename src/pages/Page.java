@@ -1,5 +1,7 @@
 package pages;
 
+import actions.ChangePageAction;
+
 public abstract class Page {
     public static final String HOME_PAGE = "homepage";
     public static final String LOGGED_HOME_PAGE = "loggedHomepage";
@@ -10,5 +12,5 @@ public abstract class Page {
     public static final String UPGRADES_PAGE = "upgrades";
     public static final String LOGOUT_PAGE = "logout";
 
-    //public abstract void changePage();
+    public abstract void changePage(ChangePageAction action);
 }

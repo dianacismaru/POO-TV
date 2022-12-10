@@ -1,12 +1,13 @@
 package actions;
 
 import basefiles.ErrorOutput;
-import pages.DetailsPage;
+import pages.Page;
 import pages.LoginPage;
-import pages.LogoutPage;
-import pages.MoviesPage;
 import pages.RegisterPage;
+import pages.MoviesPage;
+import pages.DetailsPage;
 import pages.UpgradesPage;
+import pages.LogoutPage;
 
 import static pages.Page.LOGIN_PAGE;
 import static pages.Page.LOGOUT_PAGE;
@@ -25,38 +26,17 @@ public final class ChangePageAction extends Action {
 
     @Override
     public void execute() {
-        switch (this.getPage()) {
-            case LOGIN_PAGE -> login();
-            case REGISTER_PAGE -> register();
-            case MOVIES_PAGE -> movies();
-            case SEE_DETAILS_PAGE -> seeDetails();
-            case UPGRADES_PAGE -> upgrades();
-            case LOGOUT_PAGE -> logout();
-            default -> System.out.println(INVALID_CASE);
-        }
-    }
+        Page page = switch (this.getPage()) {
+            case LOGIN_PAGE -> new LoginPage();
+            case REGISTER_PAGE -> new RegisterPage();
+            case MOVIES_PAGE -> new MoviesPage();
+            case SEE_DETAILS_PAGE -> new DetailsPage();
+            case UPGRADES_PAGE -> new UpgradesPage();
+            case LOGOUT_PAGE -> new LogoutPage();
+            default -> null;
+        };
 
-    public void login() {
-        LoginPage.login(this);
-    }
-
-    public void register() {
-        RegisterPage.register(this);
-    }
-
-    public void movies() {
-        MoviesPage.movies(this);
-    }
-
-    public void seeDetails() {
-        DetailsPage.seeDetails(this);
-    }
-
-    public void upgrades() {
-        UpgradesPage.upgrades(this);
-    }
-
-    public void logout() {
-        LogoutPage.logout(this);
+        assert page != null;
+        page.changePage(this);
     }
 }

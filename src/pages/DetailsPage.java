@@ -13,31 +13,32 @@ import java.util.List;
 public final class DetailsPage extends Page {
     private static final int MAXIMUM_RATING = 5;
 
-    public static void seeDetails(final ChangePageAction action) {
-        if (Action.getCurrentPage().equals("movies")) {
-            Action.setCurrentPage("see details");
-
-            List<Movie> detailedMovie = new ArrayList<>();
-            List<Movie> movieList = (Action.getFilteredMovieList() != null
-                                    ? Action.getFilteredMovieList()
-                                    : Action.getCurrentMoviesList());
-
-            for (Movie movie: movieList) {
-                if (movie.getName().equals(action.getMovie())) {
-                    detailedMovie.add(movie);
-                    break;
-                }
-            }
-            if (detailedMovie.isEmpty()) {
-                action.setErrorOutput(new ErrorOutput("movies"));
-            } else {
-                Action.setCurrentMoviesList(detailedMovie);
-                action.setErrorOutput(new ErrorOutput());
-            }
-            return;
+    @Override
+    public void changePage(ChangePageAction action) {
+        if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
+            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
         }
 
-        action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+        Action.setCurrentPage(SEE_DETAILS_PAGE);
+
+        List<Movie> detailedMovie = new ArrayList<>();
+        List<Movie> movieList = (Action.getFilteredMovieList() != null
+                ? Action.getFilteredMovieList()
+                : Action.getCurrentMoviesList());
+
+        for (Movie movie: movieList) {
+            if (movie.getName().equals(action.getMovie())) {
+                detailedMovie.add(movie);
+                break;
+            }
+        }
+
+        if (detailedMovie.isEmpty()) {
+            action.setErrorOutput(new ErrorOutput(MOVIES_PAGE));
+        } else {
+            Action.setCurrentMoviesList(detailedMovie);
+            action.setErrorOutput(new ErrorOutput());
+        }
     }
 
     public static void purchase(final OnPageAction action) {
