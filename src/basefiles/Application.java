@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static pages.Page.HOME_PAGE;
+import static pages.Page.SEE_DETAILS_PAGE;
+import static pages.Page.MOVIES_PAGE;
 
 public final class Application {
 
@@ -32,11 +34,11 @@ public final class Application {
      * @return          the list of errors that will be mapped in the JSON output file
      */
     public List<ErrorOutput> start(final AppInput appInput) {
-        initialize(appInput);
+        cleanUpTest(appInput);
         return execute(appInput);
     }
 
-    private void initialize(final AppInput appInput) {
+    private void cleanUpTest(final AppInput appInput) {
         Action.setCurrentPage(HOME_PAGE);
         Action.setAppInput(appInput);
         Action.setCurrentUser(null);
@@ -70,8 +72,8 @@ public final class Application {
         }
 
         if (errorOutput.getError() == null
-                && (Action.getCurrentPage().equals("movies")
-                || Action.getCurrentPage().equals("see details"))) {
+                && (Action.getCurrentPage().equals(MOVIES_PAGE)
+                || Action.getCurrentPage().equals(SEE_DETAILS_PAGE))) {
             return true;
         }
 
