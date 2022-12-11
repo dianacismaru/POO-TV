@@ -4,7 +4,7 @@ import actions.Action;
 import actions.ChangePageAction;
 import actions.OnPageAction;
 import basefiles.ErrorOutput;
-import users.User;
+import basefiles.input.User;
 
 public final class UpgradesPage extends Page {
     private static final int PRICE_FOR_PREMIUM_ACCOUNT = 10;

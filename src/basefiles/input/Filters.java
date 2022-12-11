@@ -1,4 +1,4 @@
-package basefiles.filters;
+package basefiles.input;
 
 public final class Filters {
     private Sort sort;

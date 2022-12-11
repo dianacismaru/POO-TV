@@ -1,5 +1,6 @@
 package basefiles;
 
+import basefiles.input.AppInput;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;

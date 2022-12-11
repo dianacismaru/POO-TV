@@ -1,7 +1,4 @@
-package users;
-
-import basefiles.Credentials;
-import movies.Movie;
+package basefiles.input;
 
 import java.util.ArrayList;
 import java.util.List;

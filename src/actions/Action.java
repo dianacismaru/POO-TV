@@ -1,11 +1,11 @@
 package actions;
 
-import basefiles.AppInput;
+import basefiles.input.AppInput;
 import basefiles.ErrorOutput;
-import basefiles.filters.Filters;
-import movies.Movie;
-import basefiles.Credentials;
-import users.User;
+import basefiles.input.Filters;
+import basefiles.input.Movie;
+import basefiles.input.Credentials;
+import basefiles.input.User;
 
 import java.util.List;
 

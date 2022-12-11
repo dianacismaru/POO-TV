@@ -1,6 +1,7 @@
 package basefiles;
 
 import actions.Action;
+import basefiles.input.AppInput;
 
 import java.util.ArrayList;
 import java.util.List;

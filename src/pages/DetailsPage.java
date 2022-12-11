@@ -4,8 +4,8 @@ import actions.Action;
 import actions.ChangePageAction;
 import actions.OnPageAction;
 import basefiles.ErrorOutput;
-import movies.Movie;
-import users.User;
+import basefiles.input.Movie;
+import basefiles.input.User;
 
 import java.util.ArrayList;
 import java.util.List;

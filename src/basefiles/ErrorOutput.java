@@ -1,8 +1,8 @@
 package basefiles;
 
 import actions.Action;
-import movies.Movie;
-import users.User;
+import basefiles.input.Movie;
+import basefiles.input.User;
 
 import java.util.ArrayList;
 import java.util.List;

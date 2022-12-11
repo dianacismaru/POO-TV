@@ -4,9 +4,9 @@ import actions.Action;
 import actions.ChangePageAction;
 import actions.OnPageAction;
 import basefiles.ErrorOutput;
-import basefiles.filters.Contains;
-import basefiles.filters.Sort;
-import movies.Movie;
+import basefiles.input.Contains;
+import basefiles.input.Sort;
+import basefiles.input.Movie;
 
 import java.util.ArrayList;
 import java.util.Comparator;
