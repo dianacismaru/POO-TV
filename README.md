@@ -59,4 +59,5 @@ the movie's name.
 
 > ### Resources:
 > [Working with Tree Model Nodes in JSON](https://www.baeldung.com/jackson-json-node-tree-model)
+> 
 > [Singleton in Java](https://www.geeksforgeeks.org/singleton-class-java/)
