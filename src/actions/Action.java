@@ -1,13 +1,8 @@
 package actions;
 
-import basefiles.input.AppInput;
 import basefiles.ErrorOutput;
 import basefiles.input.Filters;
-import basefiles.input.Movie;
 import basefiles.input.Credentials;
-import basefiles.input.User;
-
-import java.util.List;
 
 public class Action {
     private String type;
@@ -21,11 +16,6 @@ public class Action {
     private int rate;
 
     private ErrorOutput errorOutput;
-    private static String currentPage;
-    private static User currentUser;
-    private static List<Movie> currentMoviesList;
-    private static AppInput appInput;
-    private static List<Movie> filteredMovieList;
 
     protected static final String INVALID_CASE = "Invalid case!";
 
@@ -179,45 +169,5 @@ public class Action {
      */
     public void setErrorOutput(final ErrorOutput errorOutput) {
         this.errorOutput = errorOutput;
-    }
-
-    public static String getCurrentPage() {
-        return currentPage;
-    }
-
-    public static void setCurrentPage(final String currentPage) {
-        Action.currentPage = currentPage;
-    }
-
-    public static User getCurrentUser() {
-        return currentUser;
-    }
-
-    public static void setCurrentUser(final User currentUser) {
-        Action.currentUser = currentUser;
-    }
-
-    public static List<Movie> getCurrentMoviesList() {
-        return currentMoviesList;
-    }
-
-    public static void setCurrentMoviesList(final List<Movie> currentMoviesList) {
-        Action.currentMoviesList = currentMoviesList;
-    }
-
-    public static AppInput getAppInput() {
-        return appInput;
-    }
-
-    public static void setAppInput(final AppInput appInput) {
-        Action.appInput = appInput;
-    }
-
-    public static List<Movie> getFilteredMovieList() {
-        return filteredMovieList;
-    }
-
-    public static void setFilteredMovieList(final List<Movie> filteredMovieList) {
-        Action.filteredMovieList = filteredMovieList;
     }
 }

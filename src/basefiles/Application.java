@@ -2,6 +2,8 @@ package basefiles;
 
 import actions.Action;
 import basefiles.input.AppInput;
+import basefiles.input.Movie;
+import basefiles.input.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,12 @@ import static pages.Page.MOVIES_PAGE;
 public final class Application {
 
     private static Application instance = null;
+
+    private static String currentPage;
+    private static User currentUser;
+    private static List<Movie> currentMoviesList;
+    private static AppInput appInput;
+    private static List<Movie> filteredMovieList;
 
     private Application() {
 
@@ -35,19 +43,19 @@ public final class Application {
      * @return          the list of errors that will be mapped in the JSON output file
      */
     public List<ErrorOutput> start(final AppInput appInput) {
-        cleanUpTest(appInput);
-        return execute(appInput);
+        setAppInput(appInput);
+        cleanUpTest();
+        return execute();
     }
 
-    private void cleanUpTest(final AppInput appInput) {
-        Action.setCurrentPage(HOME_PAGE);
-        Action.setAppInput(appInput);
-        Action.setCurrentUser(null);
-        Action.setCurrentMoviesList(null);
-        Action.setFilteredMovieList(null);
+    private void cleanUpTest() {
+        setCurrentPage(HOME_PAGE);
+        setCurrentUser(null);
+        setCurrentMoviesList(null);
+        setFilteredMovieList(null);
     }
 
-    private List<ErrorOutput> execute(final AppInput appInput) {
+    private List<ErrorOutput> execute() {
         List<ErrorOutput> errorsOutput = new ArrayList<>();
 
         for (Action action : appInput.getActions()) {
@@ -73,11 +81,51 @@ public final class Application {
         }
 
         if (errorOutput.getError() == null
-                && (Action.getCurrentPage().equals(MOVIES_PAGE)
-                || Action.getCurrentPage().equals(SEE_DETAILS_PAGE))) {
+                && (currentPage.equals(MOVIES_PAGE)
+                || currentPage.equals(SEE_DETAILS_PAGE))) {
             return true;
         }
 
         return errorOutput.getError() != null;
+    }
+
+    public static String getCurrentPage() {
+        return currentPage;
+    }
+
+    public static void setCurrentPage(final String currentPage) {
+        Application.currentPage = currentPage;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(final User currentUser) {
+        Application.currentUser = currentUser;
+    }
+
+    public static List<Movie> getCurrentMoviesList() {
+        return currentMoviesList;
+    }
+
+    public static void setCurrentMoviesList(final List<Movie> currentMoviesList) {
+        Application.currentMoviesList = currentMoviesList;
+    }
+
+    public static AppInput getAppInput() {
+        return appInput;
+    }
+
+    public static void setAppInput(final AppInput appInput) {
+        Application.appInput = appInput;
+    }
+
+    public static List<Movie> getFilteredMovieList() {
+        return filteredMovieList;
+    }
+
+    public static void setFilteredMovieList(final List<Movie> filteredMovieList) {
+        Application.filteredMovieList = filteredMovieList;
     }
 }

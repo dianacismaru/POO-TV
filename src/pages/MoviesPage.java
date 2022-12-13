@@ -1,8 +1,8 @@
 package pages;
 
-import actions.Action;
 import actions.ChangePageAction;
 import actions.OnPageAction;
+import basefiles.Application;
 import basefiles.ErrorOutput;
 import basefiles.input.Contains;
 import basefiles.input.Sort;
@@ -15,7 +15,7 @@ import java.util.List;
 public final class MoviesPage extends Page {
     @Override
     public void changePage(final ChangePageAction action) {
-        String currentPage = Action.getCurrentPage();
+        String currentPage = Application.getCurrentPage();
 
         if (currentPage.equals(MOVIES_PAGE)) {
             action.setErrorOutput(new ErrorOutput());
@@ -25,16 +25,16 @@ public final class MoviesPage extends Page {
         if (currentPage.equals(LOGGED_HOME_PAGE)
                 || currentPage.equals(SEE_DETAILS_PAGE)
                 || currentPage.equals(UPGRADES_PAGE)) {
-            Action.setCurrentPage(MOVIES_PAGE);
+            Application.setCurrentPage(MOVIES_PAGE);
 
             List<Movie> movies = new ArrayList<>();
-            String currentUserCountry = Action.getCurrentUser().getCredentials().getCountry();
-            for (Movie movie: Action.getAppInput().getMovies()) {
+            String currentUserCountry = Application.getCurrentUser().getCredentials().getCountry();
+            for (Movie movie: Application.getAppInput().getMovies()) {
                 if (!movie.getCountriesBanned().contains(currentUserCountry)) {
                     movies.add(movie);
                 }
             }
-            Action.setCurrentMoviesList(new ArrayList<>(movies));
+            Application.setCurrentMoviesList(new ArrayList<>(movies));
             action.setErrorOutput(new ErrorOutput());
             return;
         }
@@ -47,13 +47,13 @@ public final class MoviesPage extends Page {
      * @param action the current action
      */
     public static void search(final OnPageAction action) {
-        if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+        if (!Application.getCurrentPage().equals(MOVIES_PAGE)) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
         List<Movie> filteredMovies = new ArrayList<>();
-        for (Movie movie: Action.getCurrentMoviesList()) {
+        for (Movie movie: Application.getCurrentMoviesList()) {
             if (movie.getName().startsWith(action.getStartsWith())) {
                 filteredMovies.add(movie);
             }
@@ -68,8 +68,8 @@ public final class MoviesPage extends Page {
      * @param action the current action
      */
     public static void filter(final OnPageAction action) {
-        if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+        if (!Application.getCurrentPage().equals(MOVIES_PAGE)) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
@@ -77,7 +77,7 @@ public final class MoviesPage extends Page {
 
         if (action.getFilters().getContains() != null) {
             Contains contains = action.getFilters().getContains();
-            for (Movie movie: Action.getCurrentMoviesList()) {
+            for (Movie movie: Application.getCurrentMoviesList()) {
                 boolean isMatching = true;
 
                 if (contains.getActors() != null) {
@@ -107,7 +107,7 @@ public final class MoviesPage extends Page {
             Sort sortFilter = action.getFilters().getSort();
 
             if (filteredMovies.isEmpty()) {
-                filteredMovies = new ArrayList<>(Action.getCurrentMoviesList());
+                filteredMovies = new ArrayList<>(Application.getCurrentMoviesList());
             }
             filteredMovies.sort(new Comparator<Movie>() {
                 @Override
@@ -140,7 +140,7 @@ public final class MoviesPage extends Page {
             });
         }
 
-        Action.setFilteredMovieList(filteredMovies);
+        Application.setFilteredMovieList(filteredMovies);
         action.setErrorOutput(new ErrorOutput());
         action.getErrorOutput().setCurrentMoviesList(filteredMovies);
     }

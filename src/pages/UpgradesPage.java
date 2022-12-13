@@ -1,8 +1,8 @@
 package pages;
 
-import actions.Action;
 import actions.ChangePageAction;
 import actions.OnPageAction;
+import basefiles.Application;
 import basefiles.ErrorOutput;
 import basefiles.input.User;
 
@@ -11,11 +11,11 @@ public final class UpgradesPage extends Page {
 
     @Override
     public void changePage(final ChangePageAction action) {
-        String currentPage = Action.getCurrentPage();
+        String currentPage = Application.getCurrentPage();
 
         if (currentPage.equals(LOGGED_HOME_PAGE)
                 || currentPage.equals(SEE_DETAILS_PAGE)) {
-            Action.setCurrentPage(UPGRADES_PAGE);
+            Application.setCurrentPage(UPGRADES_PAGE);
         } else {
             action.setErrorOutput(new ErrorOutput(HOME_PAGE));
         }
@@ -26,14 +26,14 @@ public final class UpgradesPage extends Page {
      * @param action the current action
      */
     public static void buyTokens(final OnPageAction action) {
-        User user = new User(Action.getCurrentUser());
+        User user = new User(Application.getCurrentUser());
         int currentBalance = Integer.parseInt(user.getCredentials().getBalance());
         int countTokens = action.getCount();
 
         user.getCredentials().setBalance(Integer.toString(currentBalance - countTokens));
         user.setTokensCount(user.getTokensCount() + action.getCount());
 
-        Action.setCurrentUser(user);
+        Application.setCurrentUser(user);
         action.setErrorOutput(new ErrorOutput());
         action.getErrorOutput().setCurrentUser(user);
 
@@ -44,12 +44,12 @@ public final class UpgradesPage extends Page {
      * @param action the current action
      */
     public static void buyPremiumAccount(final OnPageAction action) {
-        User user = new User(Action.getCurrentUser());
+        User user = new User(Application.getCurrentUser());
 
         user.getCredentials().setAccountType("premium");
         user.setTokensCount(user.getTokensCount() - PRICE_FOR_PREMIUM_ACCOUNT);
 
-        Action.setCurrentUser(user);
+        Application.setCurrentUser(user);
         action.setErrorOutput(new ErrorOutput());
         action.getErrorOutput().setCurrentUser(user);
     }

@@ -1,6 +1,5 @@
 package basefiles;
 
-import actions.Action;
 import basefiles.input.Movie;
 import basefiles.input.User;
 
@@ -14,12 +13,12 @@ public final class ErrorOutput {
 
     public ErrorOutput() {
         this.error = null;
-        if (Action.getCurrentMoviesList() == null) {
+        if (Application.getCurrentMoviesList() == null) {
             this.currentMoviesList = new ArrayList<>();
         } else {
-            this.currentMoviesList = new ArrayList<>(Action.getCurrentMoviesList());
+            this.currentMoviesList = new ArrayList<>(Application.getCurrentMoviesList());
         }
-        this.currentUser = Action.getCurrentUser();
+        this.currentUser = Application.getCurrentUser();
     }
 
     public ErrorOutput(final String currentPage) {
@@ -27,7 +26,7 @@ public final class ErrorOutput {
         this.error = "Error";
         this.currentMoviesList = new ArrayList<>();
         this.currentUser = null;
-        Action.setCurrentPage(currentPage);
+        Application.setCurrentPage(currentPage);
     }
 
     public String getError() {

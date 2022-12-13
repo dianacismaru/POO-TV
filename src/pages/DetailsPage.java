@@ -1,8 +1,8 @@
 package pages;
 
-import actions.Action;
 import actions.ChangePageAction;
 import actions.OnPageAction;
+import basefiles.Application;
 import basefiles.ErrorOutput;
 import basefiles.input.Movie;
 import basefiles.input.User;
@@ -15,16 +15,16 @@ public final class DetailsPage extends Page {
 
     @Override
     public void changePage(final ChangePageAction action) {
-        if (!Action.getCurrentPage().equals(MOVIES_PAGE)) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+        if (!Application.getCurrentPage().equals(MOVIES_PAGE)) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
         }
 
-        Action.setCurrentPage(SEE_DETAILS_PAGE);
+        Application.setCurrentPage(SEE_DETAILS_PAGE);
 
         List<Movie> detailedMovie = new ArrayList<>();
-        List<Movie> movieList = (Action.getFilteredMovieList() != null
-                ? Action.getFilteredMovieList()
-                : Action.getCurrentMoviesList());
+        List<Movie> movieList = (Application.getFilteredMovieList() != null
+                ? Application.getFilteredMovieList()
+                : Application.getCurrentMoviesList());
 
         for (Movie movie: movieList) {
             if (movie.getName().equals(action.getMovie())) {
@@ -36,7 +36,7 @@ public final class DetailsPage extends Page {
         if (detailedMovie.isEmpty()) {
             action.setErrorOutput(new ErrorOutput(MOVIES_PAGE));
         } else {
-            Action.setCurrentMoviesList(detailedMovie);
+            Application.setCurrentMoviesList(detailedMovie);
             action.setErrorOutput(new ErrorOutput());
         }
     }
@@ -46,12 +46,12 @@ public final class DetailsPage extends Page {
      * @param action the current action
      */
     public static void purchase(final OnPageAction action) {
-        if (!Action.getCurrentPage().equals("see details")) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+        if (!Application.getCurrentPage().equals("see details")) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
-        User user = new User(Action.getCurrentUser());
+        User user = new User(Application.getCurrentUser());
 
         if (user.getNumFreePremiumMovies() > 0
                 && user.getCredentials().getAccountType().equals("premium")) {
@@ -60,12 +60,12 @@ public final class DetailsPage extends Page {
             user.setTokensCount(user.getTokensCount() - 2);
         }
 
-        Movie currentMovie = Action.getCurrentMoviesList().get(0);
+        Movie currentMovie = Application.getCurrentMoviesList().get(0);
         List<Movie> purchasedMovies = new ArrayList<>(user.getPurchasedMovies());
         purchasedMovies.add(currentMovie);
         user.setPurchasedMovies(purchasedMovies);
 
-        Action.setCurrentUser(user);
+        Application.setCurrentUser(user);
         action.setErrorOutput(new ErrorOutput());
         action.getErrorOutput().setCurrentUser(user);
     }
@@ -75,23 +75,23 @@ public final class DetailsPage extends Page {
      * @param action the current action
      */
     public static void watch(final OnPageAction action) {
-        if (!Action.getCurrentPage().equals("see details")) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+        if (!Application.getCurrentPage().equals("see details")) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
-        User user = new User(Action.getCurrentUser());
-        Movie currentMovie = Action.getCurrentMoviesList().get(0);
+        User user = new User(Application.getCurrentUser());
+        Movie currentMovie = Application.getCurrentMoviesList().get(0);
 
         if (!user.getPurchasedMovies().contains(currentMovie)) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
         List<Movie> watchedMovies = new ArrayList<>(user.getWatchedMovies());
         watchedMovies.add(currentMovie);
         user.setWatchedMovies(watchedMovies);
-        Action.setCurrentUser(user);
+        Application.setCurrentUser(user);
         action.setErrorOutput(new ErrorOutput());
     }
 
@@ -100,20 +100,20 @@ public final class DetailsPage extends Page {
      * @param action the current action
      */
     public static void like(final OnPageAction action) {
-        if (!Action.getCurrentPage().equals("see details")) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+        if (!Application.getCurrentPage().equals("see details")) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
-        User user = new User(Action.getCurrentUser());
-        Movie currentMovie = Action.getCurrentMoviesList().get(0);
+        User user = new User(Application.getCurrentUser());
+        Movie currentMovie = Application.getCurrentMoviesList().get(0);
 
         if (!user.getWatchedMovies().contains(currentMovie)) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
-        currentMovie = new Movie(Action.getCurrentMoviesList().get(0));
+        currentMovie = new Movie(Application.getCurrentMoviesList().get(0));
         List<Movie> likedMovies = new ArrayList<>(user.getLikedMovies());
 
         currentMovie.setNumLikes(currentMovie.getNumLikes() + 1);
@@ -122,11 +122,11 @@ public final class DetailsPage extends Page {
         currentMovie.updateMovieInList(user.getPurchasedMovies());
         currentMovie.updateMovieInList(user.getWatchedMovies());
         currentMovie.updateMovieInList(user.getRatedMovies());
-        currentMovie.updateMovieInList(Action.getAppInput().getMovies());
+        currentMovie.updateMovieInList(Application.getAppInput().getMovies());
 
-        Action.getCurrentMoviesList().set(0, currentMovie);
+        Application.getCurrentMoviesList().set(0, currentMovie);
         user.setLikedMovies(likedMovies);
-        Action.setCurrentUser(user);
+        Application.setCurrentUser(user);
         action.setErrorOutput(new ErrorOutput());
     }
 
@@ -135,20 +135,20 @@ public final class DetailsPage extends Page {
      * @param action the current action
      */
     public static void rate(final OnPageAction action) {
-        if (!Action.getCurrentPage().equals("see details")) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+        if (!Application.getCurrentPage().equals("see details")) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
-        User user = new User(Action.getCurrentUser());
-        Movie currentMovie = Action.getCurrentMoviesList().get(0);
+        User user = new User(Application.getCurrentUser());
+        Movie currentMovie = Application.getCurrentMoviesList().get(0);
 
         if (!user.getWatchedMovies().contains(currentMovie) || action.getRate() > MAXIMUM_RATING) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
-        currentMovie = new Movie(Action.getCurrentMoviesList().get(0));
+        currentMovie = new Movie(Application.getCurrentMoviesList().get(0));
         List<Movie> ratedMovies = new ArrayList<>(user.getRatedMovies());
 
         currentMovie.setNumRatings(currentMovie.getNumRatings() + 1);
@@ -160,12 +160,12 @@ public final class DetailsPage extends Page {
         currentMovie.updateMovieInList(user.getPurchasedMovies());
         currentMovie.updateMovieInList(user.getWatchedMovies());
         currentMovie.updateMovieInList(user.getLikedMovies());
-        currentMovie.updateMovieInList(Action.getAppInput().getMovies());
+        currentMovie.updateMovieInList(Application.getAppInput().getMovies());
 
 
-        Action.getCurrentMoviesList().set(0, currentMovie);
+        Application.getCurrentMoviesList().set(0, currentMovie);
         user.setRatedMovies(ratedMovies);
-        Action.setCurrentUser(user);
+        Application.setCurrentUser(user);
         action.setErrorOutput(new ErrorOutput());
     }
 }

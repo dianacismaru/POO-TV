@@ -1,18 +1,18 @@
 package pages;
 
-import actions.Action;
 import actions.ChangePageAction;
 import actions.OnPageAction;
+import basefiles.Application;
 import basefiles.ErrorOutput;
 import basefiles.input.User;
 
 public final class LoginPage extends Page {
     @Override
     public void changePage(final ChangePageAction action) {
-        String currentPage = Action.getCurrentPage();
+        String currentPage = Application.getCurrentPage();
 
         if (currentPage.equals(HOME_PAGE)) {
-            Action.setCurrentPage(LOGIN_PAGE);
+            Application.setCurrentPage(LOGIN_PAGE);
             return;
         }
         action.setErrorOutput(new ErrorOutput(currentPage));
@@ -23,19 +23,19 @@ public final class LoginPage extends Page {
      * @param action the current action
      */
     public static void login(final OnPageAction action) {
-        if (!Action.getCurrentPage().equals(LOGIN_PAGE)) {
-            action.setErrorOutput(new ErrorOutput(Action.getCurrentPage()));
+        if (!Application.getCurrentPage().equals(LOGIN_PAGE)) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
         String userName = action.getCredentials().getName();
         String password = action.getCredentials().getPassword();
 
-        for (User user: Action.getAppInput().getUsers()) {
+        for (User user: Application.getAppInput().getUsers()) {
             if (user.getCredentials().getName().equals(userName)
                     && user.getCredentials().getPassword().equals(password)) {
-                Action.setCurrentUser(user);
-                Action.setCurrentPage(LOGGED_HOME_PAGE);
+                Application.setCurrentUser(user);
+                Application.setCurrentPage(LOGGED_HOME_PAGE);
                 action.setErrorOutput(new ErrorOutput());
                 return;
             }
