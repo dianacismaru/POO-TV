@@ -39,6 +39,7 @@ mentioned in the below diagram.
 > ### The actions
 
 > <img alt="flow chart" src="images/ActionDiagram-small.jpg" title="flow chart"/>
+
 > As seen above, the application's actions are separated into two child classes,
 *ChangePageAction* and *OnPageAction*.
 > The first one, as the name suggests, performs all of the actions that require
