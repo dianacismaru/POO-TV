@@ -46,7 +46,7 @@ public final class DetailsPage extends Page {
      * @param action the current action
      */
     public static void purchase(final OnPageAction action) {
-        if (!Application.getCurrentPage().equals("see details")) {
+        if (!Application.getCurrentPage().equals(SEE_DETAILS_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
@@ -75,7 +75,7 @@ public final class DetailsPage extends Page {
      * @param action the current action
      */
     public static void watch(final OnPageAction action) {
-        if (!Application.getCurrentPage().equals("see details")) {
+        if (!Application.getCurrentPage().equals(SEE_DETAILS_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
@@ -100,7 +100,7 @@ public final class DetailsPage extends Page {
      * @param action the current action
      */
     public static void like(final OnPageAction action) {
-        if (!Application.getCurrentPage().equals("see details")) {
+        if (!Application.getCurrentPage().equals(SEE_DETAILS_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
@@ -135,7 +135,7 @@ public final class DetailsPage extends Page {
      * @param action the current action
      */
     public static void rate(final OnPageAction action) {
-        if (!Application.getCurrentPage().equals("see details")) {
+        if (!Application.getCurrentPage().equals(SEE_DETAILS_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
