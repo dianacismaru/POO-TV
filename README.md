@@ -15,7 +15,7 @@ such as **login, register, logout, purchase movies**, and more.
 class uses the JSON parser for the input files, placing the information into the
 classes from the *input* package.
 
-> ![abstract class Page](https://i.ibb.co/wK1JvQg/basefiles-Diagram-1.jpg)
+> <img alt="flow chart" src="images/basefiles-Diagram-small.jpg" title="flow chart"/>
 
 > For starting the actual implementation, I used an instance of the *Application*
 class, which is defined as a **Singleton**. It works by iterating through all of
@@ -34,11 +34,11 @@ mentioned in the below diagram.
 > The whole user's login system is implemented in the *Login, Register* and
 *Logout* pages.
 
->![abstract class Page](https://i.ibb.co/5MNXq31/Page-Diagram.jpg)
+> <img alt="flow chart" src="images/Page-Diagram-small.jpg" title="flow chart"/>
 ---
 > ### The actions
 
->![abstract class Page](https://i.ibb.co/fxk44ft/Action-Diagram-small.jpg)
+> <img alt="flow chart" src="images/ActionDiagram-small.jpg" title="flow chart"/>
 > As seen above, the application's actions are separated into two child classes,
 *ChangePageAction* and *OnPageAction*.
 > The first one, as the name suggests, performs all of the actions that require
