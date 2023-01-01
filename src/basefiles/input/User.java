@@ -12,6 +12,7 @@ public final class User {
     private List<Movie> watchedMovies = new ArrayList<>();
     private List<Movie> likedMovies = new ArrayList<>();
     private List<Movie> ratedMovies = new ArrayList<>();
+    private List<Movie> notifications = new ArrayList<>();
 
     public User() {
 
@@ -25,6 +26,7 @@ public final class User {
         this.watchedMovies = new ArrayList<>(user.watchedMovies);
         this.likedMovies = new ArrayList<>(user.likedMovies);
         this.ratedMovies = new ArrayList<>(user.ratedMovies);
+        this.notifications = new ArrayList<>(user.notifications);
     }
 
     public User(final Credentials credentials) {
@@ -85,5 +87,13 @@ public final class User {
 
     public void setRatedMovies(final List<Movie> ratedMovies) {
         this.ratedMovies = ratedMovies;
+    }
+
+    public List<Movie> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Movie> notifications) {
+        this.notifications = notifications;
     }
 }

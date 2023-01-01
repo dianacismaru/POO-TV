@@ -1,8 +1,6 @@
 package actions;
 
 import basefiles.ErrorOutput;
-import basefiles.input.Filters;
-import basefiles.input.Credentials;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -13,16 +11,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ChangePageAction.class, name = "change page"),
         @JsonSubTypes.Type(value = OnPageAction.class, name = "on page"),
+        @JsonSubTypes.Type(value = SubscribeAction.class, name = "subscribe"),
+        @JsonSubTypes.Type(value = DatabaseAction.class, name = "database"),
+        @JsonSubTypes.Type(value = BackAction.class, name = "back"),
+
 })
 public abstract class Action {
     private String page;
     private String feature;
-    private Credentials credentials;
-    private int count;
-    private String startsWith;
-    private Filters filters;
     private String movie;
-    private int rate;
 
     private ErrorOutput errorOutput;
 
@@ -67,41 +64,6 @@ public abstract class Action {
     }
 
     /**
-     * @return the credentials that this action uses
-     */
-    public Credentials getCredentials() {
-        return credentials;
-    }
-
-    /**
-     * @param credentials the credentials to be set
-     */
-    public void setCredentials(final Credentials credentials) {
-        this.credentials = credentials;
-    }
-
-    /**
-     * @return the number of tokens that are bought
-     */
-    public int getCount() {
-        return count;
-    }
-
-    /**
-     * @return the string that will be checked for filtering
-     */
-    public String getStartsWith() {
-        return startsWith;
-    }
-
-    /**
-     * @return the filters that this action will apply
-     */
-    public Filters getFilters() {
-        return filters;
-    }
-
-    /**
      * @return the movie that will be purchased
      */
     public String getMovie() {
@@ -113,13 +75,6 @@ public abstract class Action {
      */
     public void setMovie(final String movie) {
         this.movie = movie;
-    }
-
-    /**
-     * @return the rate that will be given to the current movie
-     */
-    public int getRate() {
-        return rate;
     }
 
     /**
