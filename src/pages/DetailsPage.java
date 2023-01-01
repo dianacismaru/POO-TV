@@ -10,13 +10,14 @@ import basefiles.input.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class DetailsPage extends Page {
+public final class DetailsPage implements Page {
     private static final int MAXIMUM_RATING = 5;
 
     @Override
     public void changePage(final ChangePageAction action) {
         if (!Application.getCurrentPage().equals(MOVIES_PAGE)) {
             action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
+            return;
         }
 
         Application.setCurrentPage(SEE_DETAILS_PAGE);

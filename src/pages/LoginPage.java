@@ -6,13 +6,14 @@ import basefiles.Application;
 import basefiles.ErrorOutput;
 import basefiles.input.User;
 
-public final class LoginPage extends Page {
+public final class LoginPage implements Page {
     @Override
     public void changePage(final ChangePageAction action) {
         String currentPage = Application.getCurrentPage();
 
         if (currentPage.equals(HOME_PAGE)) {
             Application.setCurrentPage(LOGIN_PAGE);
+            action.setErrorOutput(new ErrorOutput());
             return;
         }
         action.setErrorOutput(new ErrorOutput(currentPage));

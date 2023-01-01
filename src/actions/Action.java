@@ -4,7 +4,7 @@ import basefiles.ErrorOutput;
 import basefiles.input.Filters;
 import basefiles.input.Credentials;
 
-public class Action {
+public abstract class Action {
     private String type;
     private String page;
     private String feature;

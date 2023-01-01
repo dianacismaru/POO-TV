@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public final class MoviesPage extends Page {
+public final class MoviesPage implements Page {
     @Override
     public void changePage(final ChangePageAction action) {
         String currentPage = Application.getCurrentPage();
