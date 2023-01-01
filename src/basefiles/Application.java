@@ -40,11 +40,9 @@ public final class Application {
 
     /**
      * Start the POO-TV application
-     * @param appInput  the input
      * @return          the list of errors that will be mapped in the JSON output file
      */
-    public List<ErrorOutput> start(final AppInput appInput) {
-        setAppInput(appInput);
+    public List<ErrorOutput> start() {
         cleanUpTest();
         return execute();
     }

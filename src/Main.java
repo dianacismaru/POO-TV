@@ -22,7 +22,8 @@ public final class Main {
         AppInput appInput = objectMapper.readValue(new File(args[0]), AppInput.class);
 
         Application application = Application.getInstance();
-        List<ErrorOutput> errorsOutput = application.start(appInput);
+        Application.setAppInput(appInput);
+        List<ErrorOutput> errorsOutput = application.start();
 
         ArrayNode output = objectMapper.valueToTree(errorsOutput);
 

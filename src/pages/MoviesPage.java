@@ -4,12 +4,9 @@ import actions.ChangePageAction;
 import actions.OnPageAction;
 import basefiles.Application;
 import basefiles.ErrorOutput;
-import basefiles.input.Contains;
-import basefiles.input.Sort;
 import basefiles.input.Movie;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public final class MoviesPage implements Page {
@@ -64,7 +61,7 @@ public final class MoviesPage implements Page {
     }
 
     /**
-     * Filter through the movies by the specified criteria
+     * Filter the movies by the specified criteria
      * @param action the current action
      */
     public static void filter(final OnPageAction action) {
@@ -73,75 +70,9 @@ public final class MoviesPage implements Page {
             return;
         }
 
-        List<Movie> filteredMovies = new ArrayList<>();
+        action.getFilters().filter();
 
-        if (action.getFilters().getContains() != null) {
-            Contains contains = action.getFilters().getContains();
-            for (Movie movie: Application.getCurrentMoviesList()) {
-                boolean isMatching = true;
-
-                if (contains.getActors() != null) {
-                    for (String actor: contains.getActors()) {
-                        if (!movie.getActors().contains(actor)) {
-                            isMatching = false;
-                            break;
-                        }
-                    }
-                }
-
-                if (isMatching && contains.getGenre() != null) {
-                    for (String genre: contains.getGenre()) {
-                        if (!movie.getGenres().contains(genre)) {
-                            isMatching = false;
-                            break;
-                        }
-                    }
-                }
-                if (isMatching) {
-                    filteredMovies.add(movie);
-                }
-            }
-        }
-
-        if (action.getFilters().getSort() != null) {
-            Sort sortFilter = action.getFilters().getSort();
-
-            if (filteredMovies.isEmpty()) {
-                filteredMovies = new ArrayList<>(Application.getCurrentMoviesList());
-            }
-            filteredMovies.sort(new Comparator<Movie>() {
-                @Override
-                public int compare(final Movie movie1, final Movie movie2) {
-                    int comparator;
-
-                    if (sortFilter.getDuration() != null) {
-                        if (sortFilter.getDuration().equals("increasing")) {
-                            comparator = movie1.getDuration() - movie2.getDuration();
-                        } else {
-                            comparator = movie2.getDuration() - movie1.getDuration();
-                        }
-                        if (comparator != 0) {
-                            return comparator;
-                        }
-                    }
-
-                    if (sortFilter.getRating() != null) {
-                        if (sortFilter.getRating().equals("increasing")) {
-                            comparator = (int) (movie1.getRating() - movie2.getRating());
-                        } else {
-                            comparator = (int) (movie2.getRating() - movie1.getRating());
-                        }
-
-                        return comparator;
-                    }
-
-                    return 0;
-                }
-            });
-        }
-
-        Application.setFilteredMovieList(filteredMovies);
         action.setErrorOutput(new ErrorOutput());
-        action.getErrorOutput().setCurrentMoviesList(filteredMovies);
+        action.getErrorOutput().setCurrentMoviesList(Application.getFilteredMovieList());
     }
 }
