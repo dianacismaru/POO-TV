@@ -1,6 +1,7 @@
 package basefiles;
 
 import actions.Action;
+import actions.CommandInvoker;
 import basefiles.input.AppInput;
 import basefiles.input.Movie;
 import basefiles.input.User;
@@ -57,10 +58,10 @@ public final class Application {
 
     private List<ErrorOutput> execute() {
         List<ErrorOutput> errorsOutput = new ArrayList<>();
+        CommandInvoker invoker = new CommandInvoker();
 
         for (Action action : appInput.getActions()) {
-            action.execute();
-
+            invoker.executeCommand(action);
             if (hasOutput(action)) {
                 errorsOutput.add(action.getErrorOutput());
             }

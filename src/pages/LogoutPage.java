@@ -4,7 +4,7 @@ import actions.ChangePageAction;
 import basefiles.Application;
 import basefiles.ErrorOutput;
 
-public final class LogoutPage extends Page {
+public final class LogoutPage implements Page {
     @Override
     public void changePage(final ChangePageAction action) {
         String currentPage = Application.getCurrentPage();
@@ -16,6 +16,7 @@ public final class LogoutPage extends Page {
             Application.setCurrentPage(HOME_PAGE);
             Application.setCurrentUser(null);
             Application.setCurrentMoviesList(null);
+            action.setErrorOutput(new ErrorOutput());
             return;
         }
 

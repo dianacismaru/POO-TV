@@ -6,7 +6,7 @@ import basefiles.Application;
 import basefiles.ErrorOutput;
 import basefiles.input.User;
 
-public final class UpgradesPage extends Page {
+public final class UpgradesPage implements Page {
     private static final int PRICE_FOR_PREMIUM_ACCOUNT = 10;
 
     @Override
@@ -16,6 +16,7 @@ public final class UpgradesPage extends Page {
         if (currentPage.equals(LOGGED_HOME_PAGE)
                 || currentPage.equals(SEE_DETAILS_PAGE)) {
             Application.setCurrentPage(UPGRADES_PAGE);
+            action.setErrorOutput(new ErrorOutput());
         } else {
             action.setErrorOutput(new ErrorOutput(HOME_PAGE));
         }

@@ -2,19 +2,19 @@ package pages;
 
 import actions.ChangePageAction;
 
-public abstract class Page {
-    public static final String HOME_PAGE = "homepage";
-    public static final String LOGGED_HOME_PAGE = "loggedHomepage";
-    public static final String LOGIN_PAGE = "login";
-    public static final String REGISTER_PAGE = "register";
-    public static final String MOVIES_PAGE = "movies";
-    public static final String SEE_DETAILS_PAGE = "see details";
-    public static final String UPGRADES_PAGE = "upgrades";
-    public static final String LOGOUT_PAGE = "logout";
+public interface Page {
+    String HOME_PAGE = "homepage";
+    String LOGGED_HOME_PAGE = "loggedHomepage";
+    String LOGIN_PAGE = "login";
+    String REGISTER_PAGE = "register";
+    String MOVIES_PAGE = "movies";
+    String SEE_DETAILS_PAGE = "see details";
+    String UPGRADES_PAGE = "upgrades";
+    String LOGOUT_PAGE = "logout";
 
     /**
      * Change the current page in the application
      * @param action    the current action
      */
-    public abstract void changePage(ChangePageAction action);
+    void changePage(ChangePageAction action);
 }
