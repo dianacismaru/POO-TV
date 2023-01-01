@@ -7,18 +7,6 @@ import pages.RegisterPage;
 import pages.UpgradesPage;
 
 public final class OnPageAction extends Action {
-    public OnPageAction(final Action action) {
-        this.setType(action.getType());
-        this.setPage(action.getPage());
-        this.setFeature(action.getFeature());
-        this.setCredentials(action.getCredentials());
-        this.setCount(action.getCount());
-        this.setStartsWith(action.getStartsWith());
-        this.setFilters(action.getFilters());
-        this.setRate(action.getRate());
-        this.setMovie(action.getMovie());
-    }
-
     @Override
     public void execute() {
         switch (this.getFeature()) {
@@ -104,5 +92,10 @@ public final class OnPageAction extends Action {
      */
     public void buyTokens() {
         UpgradesPage.buyTokens(this);
+    }
+
+    @Override
+    public String getType() {
+        return "on page";
     }
 }
