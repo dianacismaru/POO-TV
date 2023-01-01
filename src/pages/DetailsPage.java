@@ -16,6 +16,10 @@ public final class DetailsPage implements Page {
     @Override
     public void changePage(final ChangePageAction action) {
         if (!Application.getCurrentPage().equals(MOVIES_PAGE)) {
+            if (Application.getCurrentPage().equals(SEE_DETAILS_PAGE)) {
+                action.setErrorOutput(new ErrorOutput());
+                return;
+            }
             action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }

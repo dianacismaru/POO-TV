@@ -25,7 +25,7 @@ public final class RegisterPage implements Page {
      */
     public static void register(final OnPageAction action) {
         if (!Application.getCurrentPage().equals(REGISTER_PAGE)) {
-            action.setErrorOutput(new ErrorOutput(HOME_PAGE));
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
             return;
         }
 
