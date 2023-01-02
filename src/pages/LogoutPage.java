@@ -1,6 +1,7 @@
 package pages;
 
 import actions.ChangePageAction;
+import actions.CommandInvoker;
 import basefiles.Application;
 import basefiles.ErrorOutput;
 
@@ -16,6 +17,7 @@ public final class LogoutPage implements Page {
             Application.setCurrentPage(HOME_PAGE);
             Application.setCurrentUser(null);
             Application.setCurrentMoviesList(null);
+            CommandInvoker.deleteHistory();
             action.setErrorOutput(new ErrorOutput());
             return;
         }

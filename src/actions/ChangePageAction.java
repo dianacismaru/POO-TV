@@ -1,5 +1,6 @@
 package actions;
 
+import basefiles.Application;
 import pages.Page;
 import pages.PageFactory;
 
@@ -9,6 +10,10 @@ public final class ChangePageAction extends Action {
     public void execute() {
         Page page = PageFactory.createPage(this.getPage());
         page.changePage(this);
+
+        if (Application.getCurrentUser() != null && this.getErrorOutput().getError() == null) {
+            CommandInvoker.push(Application.getCurrentPage());
+        }
     }
 
     @Override

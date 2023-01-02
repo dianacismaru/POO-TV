@@ -1,9 +1,13 @@
 package basefiles.input;
 
+import basefiles.observer.Notification;
+import basefiles.observer.Observer;
+import basefiles.observer.Subject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public final class User {
+public final class User implements Observer {
     private static final int NUM_FREE_PREMIUM_MOVIES = 15;
     private Credentials credentials;
     private int tokensCount;
@@ -12,7 +16,7 @@ public final class User {
     private List<Movie> watchedMovies = new ArrayList<>();
     private List<Movie> likedMovies = new ArrayList<>();
     private List<Movie> ratedMovies = new ArrayList<>();
-    private List<Movie> notifications = new ArrayList<>();
+    private List<Notification> notifications = new ArrayList<>();
 
     public User() {
 
@@ -89,11 +93,21 @@ public final class User {
         this.ratedMovies = ratedMovies;
     }
 
-    public List<Movie> getNotifications() {
+    public List<Notification> getNotifications() {
         return notifications;
     }
 
-    public void setNotifications(List<Movie> notifications) {
+    public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void addSubject(Subject sub) {
+
     }
 }

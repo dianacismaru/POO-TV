@@ -15,7 +15,8 @@ public final class UpgradesPage implements Page {
 
         if (currentPage.equals(LOGGED_HOME_PAGE)
                 || currentPage.equals(SEE_DETAILS_PAGE)
-                || currentPage.equals(UPGRADES_PAGE)) {
+                || currentPage.equals(UPGRADES_PAGE)
+                || currentPage.equals(MOVIES_PAGE)) {
             Application.setCurrentPage(UPGRADES_PAGE);
             action.setErrorOutput(new ErrorOutput());
         } else {

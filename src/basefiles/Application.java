@@ -2,9 +2,11 @@ package basefiles;
 
 import actions.Action;
 import actions.CommandInvoker;
+import actions.OnPageAction;
 import basefiles.input.AppInput;
 import basefiles.input.Movie;
 import basefiles.input.User;
+import basefiles.observer.NotificationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,9 @@ public final class Application {
     private static List<Movie> currentMoviesList;
     private static AppInput appInput;
     private static List<Movie> filteredMovieList;
+    private static String previousPage;
+
+    private final NotificationService notificationService = new NotificationService();
 
     private Application() {
 
@@ -58,13 +63,36 @@ public final class Application {
         List<ErrorOutput> errorsOutput = new ArrayList<>();
         CommandInvoker invoker = new CommandInvoker();
 
+        int ct = 1;
         for (Action action : appInput.getActions()) {
+
+            /*System.out.println("\nComanda nr. " + ct++ + " type: " + action.getType());
+            if (action.getType().equals("on page")) {
+                System.out.println("cu feature: " + action.getFeature());
+            } else if (action.getType().equals("change page")) {
+                System.out.println("change pe pagina: " + action.getPage());
+            }
+            System.out.println("current page ERA: " + Application.currentPage);*/
             invoker.executeCommand(action);
+            //System.out.println("current page A DEVENIT: " + Application.currentPage);
+
             if (hasOutput(action)) {
                 errorsOutput.add(action.getErrorOutput());
+
+/*                if (action.getErrorOutput().getError() != null) {
+                    System.out.println("ERROR GRAV");
+                } else {
+                    System.out.println("AM CEVA LA OUTPUT");
+                }*/
             }
+/*            if (Application.currentUser == null) {
+                System.out.println("current user: NULL");
+            } else {
+                System.out.println("current user: " + Application.currentUser.getCredentials().getName());
+            }
+            CommandInvoker.printHistory();*/
         }
-        return errorsOutput;
+        return makeRecommendation(errorsOutput);
     }
 
     private static boolean hasOutput(final Action action) {
@@ -88,11 +116,26 @@ public final class Application {
         return errorOutput.getError() != null;
     }
 
+    private static List<ErrorOutput> makeRecommendation(List<ErrorOutput> errorsOutput) {
+        if (Application.currentUser == null
+                || Application.currentUser.getCredentials().getAccountType().equals("standard")) {
+            return errorsOutput;
+        }
+
+        //Application.getCurrentMoviesList()
+        // trebuie sa fac o notificare in care sa pun recomandarea
+
+        Application.setCurrentMoviesList(new ArrayList<>());
+        errorsOutput.add(new ErrorOutput());
+        return errorsOutput;
+    }
+
     public static String getCurrentPage() {
         return currentPage;
     }
 
     public static void setCurrentPage(final String currentPage) {
+        Application.previousPage = Application.currentPage;
         Application.currentPage = currentPage;
     }
 
@@ -126,5 +169,13 @@ public final class Application {
 
     public static void setFilteredMovieList(final List<Movie> filteredMovieList) {
         Application.filteredMovieList = filteredMovieList;
+    }
+
+    public static String getPreviousPage() {
+        return previousPage;
+    }
+
+    public static void setPreviousPage(String previousPage) {
+        Application.previousPage = previousPage;
     }
 }

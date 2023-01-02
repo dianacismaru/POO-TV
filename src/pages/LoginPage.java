@@ -1,6 +1,7 @@
 package pages;
 
 import actions.ChangePageAction;
+import actions.CommandInvoker;
 import actions.OnPageAction;
 import basefiles.Application;
 import basefiles.ErrorOutput;
@@ -37,6 +38,8 @@ public final class LoginPage implements Page {
                     && user.getCredentials().getPassword().equals(password)) {
                 Application.setCurrentUser(user);
                 Application.setCurrentPage(LOGGED_HOME_PAGE);
+                CommandInvoker.createHistory();
+                CommandInvoker.push(LOGGED_HOME_PAGE);
                 action.setErrorOutput(new ErrorOutput());
                 return;
             }
