@@ -30,9 +30,9 @@ public final class Sort {
 
                 if (rating != null) {
                     if (rating.equals("increasing")) {
-                        comparator = (int) (movie1.getRating() - movie2.getRating());
+                        comparator = Double.compare(movie1.getRating(), movie2.getRating());
                     } else {
-                        comparator = (int) (movie2.getRating() - movie1.getRating());
+                        comparator = Double.compare(movie2.getRating(), movie1.getRating());
                     }
 
                     return comparator;

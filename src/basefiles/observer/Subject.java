@@ -1,13 +1,7 @@
 package basefiles.observer;
 
 public interface Subject {
-    //methods to register and unregister observers
-    void register(Observer obj);
-    void unregister(Observer obj);
+    void addObserver(Observer observer);
 
-    //method to notify observers of change
-    void notifyObservers();
-
-    //method to get updates from subject
-    Object getUpdate(Observer obj);
+    void notifyObservers(Notification notification);
 }

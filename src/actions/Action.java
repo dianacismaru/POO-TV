@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ChangePageAction.class, name = "change page"),
         @JsonSubTypes.Type(value = OnPageAction.class, name = "on page"),
-        @JsonSubTypes.Type(value = SubscribeAction.class, name = "subscribe"),
         @JsonSubTypes.Type(value = DatabaseAction.class, name = "database"),
         @JsonSubTypes.Type(value = BackAction.class, name = "back"),
 

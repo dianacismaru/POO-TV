@@ -22,7 +22,7 @@ public final class CommandInvoker {
         history = null;
     }
 
-    public static void push(String page) {
+    public static void push(final String page) {
         history.add(page);
     }
 
@@ -39,17 +39,5 @@ public final class CommandInvoker {
             return history.size();
         }
         return 0;
-    }
-
-    public static void printHistory() {
-        if (history == null) {
-            System.out.println("[ COADA E GOALA ]");
-            return;
-        }
-        System.out.print("[");
-        for (String string: history) {
-            System.out.printf("%s, ", string);
-        }
-        System.out.println("]");
     }
 }

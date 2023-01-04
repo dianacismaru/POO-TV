@@ -37,6 +37,7 @@ public final class LoginPage implements Page {
             if (user.getCredentials().getName().equals(userName)
                     && user.getCredentials().getPassword().equals(password)) {
                 Application.setCurrentUser(user);
+                user.updateLists();
                 Application.setCurrentPage(LOGGED_HOME_PAGE);
                 CommandInvoker.createHistory();
                 CommandInvoker.push(LOGGED_HOME_PAGE);

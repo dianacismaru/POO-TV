@@ -13,7 +13,8 @@ public final class OnPageAction extends Action {
     private int count;
     private String startsWith;
     private Filters filters;
-    private int rate;
+    private double rate;
+    private String subscribedGenre;
 
     @Override
     public void execute() {
@@ -26,6 +27,7 @@ public final class OnPageAction extends Action {
             case "watch" -> DetailsPage.watch(this);
             case "like" -> DetailsPage.like(this);
             case "rate" -> DetailsPage.rate(this);
+            case "subscribe" -> DetailsPage.subscribe(this);
             case "buy premium account" -> UpgradesPage.buyPremiumAccount(this);
             case "buy tokens" -> UpgradesPage.buyTokens(this);
             default -> System.out.println(INVALID_CASE);
@@ -75,7 +77,15 @@ public final class OnPageAction extends Action {
     /**
      * @return the rate that will be given to the current movie
      */
-    public int getRate() {
+    public double getRate() {
         return rate;
+    }
+
+    public String getSubscribedGenre() {
+        return subscribedGenre;
+    }
+
+    public void setSubscribedGenre(final String subscribedGenre) {
+        this.subscribedGenre = subscribedGenre;
     }
 }

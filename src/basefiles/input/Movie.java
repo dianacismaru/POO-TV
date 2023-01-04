@@ -1,7 +1,13 @@
 package basefiles.input;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static basefiles.Utils.NUMBER_OF_GENRES;
 
 public final class Movie {
     private String name;
@@ -10,10 +16,15 @@ public final class Movie {
     private List<String> genres;
     private List<String> actors;
     private List<String> countriesBanned;
-
     private int numLikes;
     private double rating = 0.00;
     private int numRatings;
+
+    @JsonIgnore
+    private List<Double> ratings = Stream.generate(() -> 0.0).limit(NUMBER_OF_GENRES)
+            .collect(Collectors.toList());
+    @JsonIgnore
+    private final List<User> buyers = new ArrayList<>();
 
     public Movie() {
 
@@ -26,6 +37,7 @@ public final class Movie {
         this.genres = new ArrayList<>(movie.genres);
         this.actors = new ArrayList<>(movie.actors);
         this.countriesBanned = new ArrayList<>(movie.countriesBanned);
+        this.ratings = new ArrayList<>(movie.ratings);
         this.rating = movie.rating;
         this.numLikes = movie.numLikes;
         this.numRatings = movie.numRatings;
@@ -90,6 +102,14 @@ public final class Movie {
 
     public void setCountriesBanned(final List<String> countriesBanned) {
         this.countriesBanned = countriesBanned;
+    }
+
+    public List<Double> getRatings() {
+        return ratings;
+    }
+
+    public List<User> getBuyers() {
+        return buyers;
     }
 
     public int getNumLikes() {

@@ -14,6 +14,7 @@ public final class LogoutPage implements Page {
                 || currentPage.equals(SEE_DETAILS_PAGE)
                 || currentPage.equals(UPGRADES_PAGE)
                 || currentPage.equals(MOVIES_PAGE)) {
+            Application.getCurrentUser().updateInInput();
             Application.setCurrentPage(HOME_PAGE);
             Application.setCurrentUser(null);
             Application.setCurrentMoviesList(null);
