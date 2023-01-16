@@ -75,8 +75,6 @@ As shown in the below diagram, the specialized pages are created using the
 
 ![the pages diagram](https://i.ibb.co/jgGJWr7/pages.png "the pages")
 
-
----
 ## 5. Notification Service
 ![observer pattern](https://i.ibb.co/L9bZXbg/observer.png "observer pattern")
 Let's say a new movie is added into the database. This action will **notify**
@@ -90,7 +88,6 @@ application will automatically make a movie recommendation for the user.
 The entire Notification Service is implemented with the help of **Observer
 Pattern**, as explained in the below diagram.
 
----
 ## 6. Main Difficulties
 
 - One of the main difficulties come from finding **suitable design patterns**
