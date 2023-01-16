@@ -2,6 +2,15 @@
 
 # POO-TV - Homework
 
+## Table of Contents
+1. [Description of the Project](#1-description-of-the-project)
+2. [The Entry-Point of the Program](#2-the-entry-point-of-the-program)
+3. [The Actions](#3-the-actions)
+4. [The Pages](#4-the-pages)
+5. [Notification Service](#5-notification-service)
+6. [Main Difficulties](#6-main-difficulties)
+7. [Resources](#7-resources)
+
 ## 1. Description of the Project
 This project represents a simple **backend implementation** of a Netflix-like
 platform, which is designed for **watching movies**, yet also performing
@@ -103,7 +112,7 @@ list from the current user would lead to a global modification in the output
 file. I repaired it mostly, but sadly, not entirely. That's the reason why I
 only have passed `7/10` of the tests.
 
-## 7. Resources:
+## 7. Resources
 * [Working with Tree Model Nodes in JSON](https://www.baeldung.com/jackson-json-node-tree-model)
 * [Singleton in Java](https://www.geeksforgeeks.org/singleton-class-java/)
 * [Design Patterns](https://ocw.cs.pub.ro/courses/poo-ca-cd/laboratoare/design-patterns)
