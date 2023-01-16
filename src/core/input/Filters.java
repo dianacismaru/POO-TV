@@ -1,6 +1,6 @@
-package basefiles.input;
+package core.input;
 
-import basefiles.Application;
+import core.Application;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,14 +1,16 @@
-package basefiles;
+package core;
 
 import actions.Action;
 import actions.CommandInvoker;
-import basefiles.input.AppInput;
-import basefiles.input.Movie;
-import basefiles.input.User;
+import core.input.AppInput;
+import core.input.Movie;
+import core.input.User;
+import observer.Genre;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static core.Utils.makeRecommendation;
 import static pages.Page.HOME_PAGE;
 import static pages.Page.SEE_DETAILS_PAGE;
 import static pages.Page.MOVIES_PAGE;
@@ -22,9 +24,15 @@ public final class Application {
     private static List<Movie> currentMoviesList;
     private static AppInput appInput;
     private static List<Movie> filteredMovieList;
+    private static List<Genre> genreList = new ArrayList<>();
 
     private Application() {
+        String[] genres = {"Action", "Horror", "Thriller", "Crime", "Comedy",
+                "Western", "Mystery", "Fantasy", "Drama", "Romance"};
 
+        for (String genre: genres) {
+            genreList.add(new Genre(genre));
+        }
     }
 
     /**
@@ -60,11 +68,12 @@ public final class Application {
 
         for (Action action : appInput.getActions()) {
             invoker.executeCommand(action);
+
             if (hasOutput(action)) {
                 errorsOutput.add(action.getErrorOutput());
             }
         }
-        return errorsOutput;
+        return makeRecommendation(errorsOutput);
     }
 
     private static boolean hasOutput(final Action action) {
@@ -72,16 +81,20 @@ public final class Application {
 
         if (action.getType().equals("on page")
                 && errorOutput.getError() == null
-                && (action.getFeature().equals("filter")
+                && ((action.getFeature().equals("filter")
                 || action.getFeature().equals("search")
                 || action.getFeature().equals("login")
-                || action.getFeature().equals("register"))) {
+                || action.getFeature().equals("register")))) {
             return true;
         }
 
+        if (action.getType().equals("database") && errorOutput.getError() == null) {
+            return false;
+        }
+
         if (errorOutput.getError() == null
-                && (currentPage.equals(MOVIES_PAGE)
-                || currentPage.equals(SEE_DETAILS_PAGE))) {
+                && ((currentPage.equals(MOVIES_PAGE)
+                || currentPage.equals(SEE_DETAILS_PAGE)))) {
             return true;
         }
 
@@ -126,5 +139,9 @@ public final class Application {
 
     public static void setFilteredMovieList(final List<Movie> filteredMovieList) {
         Application.filteredMovieList = filteredMovieList;
+    }
+
+    public static List<Genre> getGenreList() {
+        return genreList;
     }
 }

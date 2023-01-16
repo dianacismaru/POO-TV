@@ -1,10 +1,11 @@
 package pages;
 
 import actions.ChangePageAction;
+import actions.CommandInvoker;
 import actions.OnPageAction;
-import basefiles.Application;
-import basefiles.ErrorOutput;
-import basefiles.input.User;
+import core.Application;
+import core.ErrorOutput;
+import core.input.User;
 
 public final class LoginPage implements Page {
     @Override
@@ -36,7 +37,10 @@ public final class LoginPage implements Page {
             if (user.getCredentials().getName().equals(userName)
                     && user.getCredentials().getPassword().equals(password)) {
                 Application.setCurrentUser(user);
+                user.updateLists();
                 Application.setCurrentPage(LOGGED_HOME_PAGE);
+                CommandInvoker.createHistory();
+                CommandInvoker.push(LOGGED_HOME_PAGE);
                 action.setErrorOutput(new ErrorOutput());
                 return;
             }

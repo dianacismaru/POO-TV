@@ -2,13 +2,16 @@ package pages;
 
 import actions.ChangePageAction;
 import actions.OnPageAction;
-import basefiles.Application;
-import basefiles.ErrorOutput;
-import basefiles.input.Movie;
-import basefiles.input.User;
+import core.Application;
+import core.ErrorOutput;
+import observer.Genre;
+import core.input.Movie;
+import core.input.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static core.Utils.NUMBER_OF_GENRES;
 
 public final class DetailsPage implements Page {
     private static final int MAXIMUM_RATING = 5;
@@ -67,10 +70,21 @@ public final class DetailsPage implements Page {
 
         Movie currentMovie = Application.getCurrentMoviesList().get(0);
         List<Movie> purchasedMovies = new ArrayList<>(user.getPurchasedMovies());
+
+        if (user.getPurchasedMovies().contains(currentMovie)) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
+            return;
+        }
         purchasedMovies.add(currentMovie);
         user.setPurchasedMovies(purchasedMovies);
 
         Application.setCurrentUser(user);
+
+        for (Movie movie: Application.getAppInput().getMovies()) {
+            if (movie.getName().equals(currentMovie.getName())) {
+                movie.getBuyers().add(user);
+            }
+        }
         action.setErrorOutput(new ErrorOutput());
         action.getErrorOutput().setCurrentUser(user);
     }
@@ -94,9 +108,13 @@ public final class DetailsPage implements Page {
         }
 
         List<Movie> watchedMovies = new ArrayList<>(user.getWatchedMovies());
-        watchedMovies.add(currentMovie);
-        user.setWatchedMovies(watchedMovies);
-        Application.setCurrentUser(user);
+
+        if (!user.getWatchedMovies().contains(currentMovie)) {
+            watchedMovies.add(currentMovie);
+            user.setWatchedMovies(watchedMovies);
+            Application.setCurrentUser(user);
+        }
+
         action.setErrorOutput(new ErrorOutput());
     }
 
@@ -132,6 +150,14 @@ public final class DetailsPage implements Page {
         Application.getCurrentMoviesList().set(0, currentMovie);
         user.setLikedMovies(likedMovies);
         Application.setCurrentUser(user);
+        for (int i = 0; i < NUMBER_OF_GENRES; i++) {
+            for (String genre: currentMovie.getGenres()) {
+                if (genre.equals(Application.getGenreList().get(i).getName())) {
+                    user.getLikesForGenres().set(i, user.getLikesForGenres().get(i) + 1);
+                }
+            }
+        }
+
         action.setErrorOutput(new ErrorOutput());
     }
 
@@ -156,21 +182,65 @@ public final class DetailsPage implements Page {
         currentMovie = new Movie(Application.getCurrentMoviesList().get(0));
         List<Movie> ratedMovies = new ArrayList<>(user.getRatedMovies());
 
-        currentMovie.setNumRatings(currentMovie.getNumRatings() + 1);
-        double sumRatings = currentMovie.getRating() * (currentMovie.getNumRatings() - 1)
-                + action.getRate();
+        int numRatings = currentMovie.getNumRatings();
+        boolean firstRate = false;
+        if (currentMovie.getRatings().get(user.calculateIndex()) == 0) {
+            numRatings++;
+            firstRate = true;
+        }
+        currentMovie.setNumRatings(numRatings);
+        currentMovie.getRatings().set(user.calculateIndex(), action.getRate());
+
+        double sumRatings = currentMovie.getRatings().stream()
+                .mapToDouble(Double::doubleValue).sum();
         currentMovie.setRating(sumRatings / currentMovie.getNumRatings());
-        ratedMovies.add(currentMovie);
+
+        if (firstRate) {
+            ratedMovies.add(currentMovie);
+        }
 
         currentMovie.updateMovieInList(user.getPurchasedMovies());
         currentMovie.updateMovieInList(user.getWatchedMovies());
         currentMovie.updateMovieInList(user.getLikedMovies());
         currentMovie.updateMovieInList(Application.getAppInput().getMovies());
 
-
         Application.getCurrentMoviesList().set(0, currentMovie);
         user.setRatedMovies(ratedMovies);
         Application.setCurrentUser(user);
+        action.setErrorOutput(new ErrorOutput());
+    }
+
+    /**
+     * Subscribe the current user to the current movie's genres
+     * @param action the current action
+     */
+    public static void subscribe(final OnPageAction action) {
+        if (!Application.getCurrentPage().equals(SEE_DETAILS_PAGE)) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
+            return;
+        }
+
+        Movie currentMovie = Application.getCurrentMoviesList().get(0);
+
+        if (!currentMovie.getGenres().contains(action.getSubscribedGenre())) {
+            action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
+            return;
+        }
+
+        for (Genre genre: Application.getCurrentUser().getSubscribedGenres()) {
+            if (genre.getName().equals(action.getSubscribedGenre())) {
+                action.setErrorOutput(new ErrorOutput(Application.getCurrentPage()));
+                return;
+            }
+        }
+
+        for (Genre genre: Application.getGenreList()) {
+            if (genre.getName().equals(action.getSubscribedGenre())) {
+                genre.addObserver(Application.getCurrentUser());
+                Application.getCurrentUser().getSubscribedGenres().add(genre);
+            }
+        }
+
         action.setErrorOutput(new ErrorOutput());
     }
 }

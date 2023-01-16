@@ -1,4 +1,4 @@
-package basefiles.input;
+package core.input;
 
 import actions.Action;
 

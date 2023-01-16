@@ -2,9 +2,9 @@ package pages;
 
 import actions.ChangePageAction;
 import actions.OnPageAction;
-import basefiles.Application;
-import basefiles.ErrorOutput;
-import basefiles.input.User;
+import core.Application;
+import core.ErrorOutput;
+import core.input.User;
 
 public final class UpgradesPage implements Page {
     private static final int PRICE_FOR_PREMIUM_ACCOUNT = 10;
@@ -15,7 +15,8 @@ public final class UpgradesPage implements Page {
 
         if (currentPage.equals(LOGGED_HOME_PAGE)
                 || currentPage.equals(SEE_DETAILS_PAGE)
-                || currentPage.equals(UPGRADES_PAGE)) {
+                || currentPage.equals(UPGRADES_PAGE)
+                || currentPage.equals(MOVIES_PAGE)) {
             Application.setCurrentPage(UPGRADES_PAGE);
             action.setErrorOutput(new ErrorOutput());
         } else {

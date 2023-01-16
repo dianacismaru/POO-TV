@@ -1,5 +1,7 @@
 package actions;
 
+import core.input.Credentials;
+import core.input.Filters;
 import pages.DetailsPage;
 import pages.LoginPage;
 import pages.MoviesPage;
@@ -7,95 +9,83 @@ import pages.RegisterPage;
 import pages.UpgradesPage;
 
 public final class OnPageAction extends Action {
+    private Credentials credentials;
+    private int count;
+    private String startsWith;
+    private Filters filters;
+    private double rate;
+    private String subscribedGenre;
+
     @Override
     public void execute() {
         switch (this.getFeature()) {
-            case "login" -> login();
-            case "register" -> register();
-            case "search" -> search();
-            case "filter" -> filter();
-            case "purchase" -> purchase();
-            case "watch" -> watch();
-            case "like" -> like();
-            case "rate" -> rate();
-            case "buy premium account" -> buyPremiumAccount();
-            case "buy tokens" -> buyTokens();
+            case "login" -> LoginPage.login(this);
+            case "register" -> RegisterPage.register(this);
+            case "search" -> MoviesPage.search(this);
+            case "filter" -> MoviesPage.filter(this);
+            case "purchase" -> DetailsPage.purchase(this);
+            case "watch" -> DetailsPage.watch(this);
+            case "like" -> DetailsPage.like(this);
+            case "rate" -> DetailsPage.rate(this);
+            case "subscribe" -> DetailsPage.subscribe(this);
+            case "buy premium account" -> UpgradesPage.buyPremiumAccount(this);
+            case "buy tokens" -> UpgradesPage.buyTokens(this);
             default -> System.out.println(INVALID_CASE);
         }
-    }
-
-    /**
-     * Perform 'login' action in the Login page
-     */
-    public void login() {
-        LoginPage.login(this);
-    }
-
-    /**
-     * Perform 'register' action in the Register page
-     */
-    public void register() {
-        RegisterPage.register(this);
-    }
-
-    /**
-     * Perform 'search' action in the Movies page
-     */
-    public void search() {
-        MoviesPage.search(this);
-    }
-
-    /**
-     * Perform 'filter' action in the Movies page
-     */
-    public void filter() {
-        MoviesPage.filter(this);
-    }
-
-    /**
-     * Perform 'purchase' action in the See Details page
-     */
-    public void purchase() {
-        DetailsPage.purchase(this);
-    }
-
-    /**
-     * Perform 'watch' action in the See Details page
-     */
-    public void watch() {
-        DetailsPage.watch(this);
-    }
-
-    /**
-     * Perform 'like' action in the See Details page
-     */
-    public void like() {
-        DetailsPage.like(this);
-    }
-
-    /**
-     * Perform 'rate' action in the See Details page
-     */
-    public void rate() {
-        DetailsPage.rate(this);
-    }
-
-    /**
-     * Perform 'buy premium account' action in the Upgrades page
-     */
-    public void buyPremiumAccount() {
-        UpgradesPage.buyPremiumAccount(this);
-    }
-
-    /**
-     * Perform 'buy tokens' action in the Upgrades page
-     */
-    public void buyTokens() {
-        UpgradesPage.buyTokens(this);
     }
 
     @Override
     public String getType() {
         return "on page";
+    }
+
+    /**
+     * @return the credentials that this action uses
+     */
+    public Credentials getCredentials() {
+        return credentials;
+    }
+
+    /**
+     * @param credentials the credentials to be set
+     */
+    public void setCredentials(final Credentials credentials) {
+        this.credentials = credentials;
+    }
+
+    /**
+     * @return the number of tokens that are bought
+     */
+    public int getCount() {
+        return count;
+    }
+
+    /**
+     * @return the string that will be checked for filtering
+     */
+    public String getStartsWith() {
+        return startsWith;
+    }
+
+    /**
+     * @return the filters that this action will apply
+     */
+    public Filters getFilters() {
+        return filters;
+    }
+
+    /**
+     * @return the rate that will be given to the current movie
+     */
+    public double getRate() {
+        return rate;
+    }
+
+    public String getSubscribedGenre() {
+        return subscribedGenre;
+    }
+
+    public void setSubscribedGenre(final String subscribedGenre) {
+        this.subscribedGenre = subscribedGenre;
     }
 }

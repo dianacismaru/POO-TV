@@ -1,8 +1,9 @@
 package pages;
 
 import actions.ChangePageAction;
-import basefiles.Application;
-import basefiles.ErrorOutput;
+import actions.CommandInvoker;
+import core.Application;
+import core.ErrorOutput;
 
 public final class LogoutPage implements Page {
     @Override
@@ -13,9 +14,11 @@ public final class LogoutPage implements Page {
                 || currentPage.equals(SEE_DETAILS_PAGE)
                 || currentPage.equals(UPGRADES_PAGE)
                 || currentPage.equals(MOVIES_PAGE)) {
+            Application.getCurrentUser().updateInInput();
             Application.setCurrentPage(HOME_PAGE);
             Application.setCurrentUser(null);
             Application.setCurrentMoviesList(null);
+            CommandInvoker.deleteHistory();
             action.setErrorOutput(new ErrorOutput());
             return;
         }
