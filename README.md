@@ -39,7 +39,7 @@ The **users** can be considered the clients of the application. They are able to
 perform various actions that will be detailed in the next chapter.
 
 ## 3. The Actions
-![the action diagram](https://i.ibb.co/ScdGgRQ/actions.png "the actions")
+![the action diagram](https://i.ibb.co/XCjXJJ0/action.png "the actions")
 This program offers a lot of possibilities when it comes to actions. The abstract
 class `Action` is the parent class of each of the specialized actions: *change
 page, on page, database* and *back*.
@@ -73,12 +73,12 @@ a `change page()` method.\
 As shown in the below diagram, the specialized pages are created using the
 **Factory Method Design Pattern**.
 
-![the pages diagram](https://i.ibb.co/8zJzGVw/pages.png "the pages")
+![the pages diagram](https://i.ibb.co/jgGJWr7/pages.png "the pages")
 
 
 ---
 ## 5. Notification Service
-![observer pattern](https://i.ibb.co/2hry3DD/observer.png "observer pattern")
+![observer pattern](https://i.ibb.co/L9bZXbg/observer.png "observer pattern")
 Let's say a new movie is added into the database. This action will **notify**
 all the users that are subscribed to the new movie's genres. If that movie will
 eventually be deleted, the users that purchased the movie will also be notified,
