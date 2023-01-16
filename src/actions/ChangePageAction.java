@@ -1,6 +1,6 @@
 package actions;
 
-import basefiles.Application;
+import core.Application;
 import pages.Page;
 import pages.PageFactory;
 

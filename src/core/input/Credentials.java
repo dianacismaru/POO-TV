@@ -1,4 +1,4 @@
-package basefiles.input;
+package core.input;
 
 public final class Credentials {
     private String name;

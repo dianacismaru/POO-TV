@@ -2,9 +2,9 @@ package pages;
 
 import actions.ChangePageAction;
 import actions.OnPageAction;
-import basefiles.Application;
-import basefiles.ErrorOutput;
-import basefiles.input.Movie;
+import core.Application;
+import core.ErrorOutput;
+import core.input.Movie;
 
 import java.util.ArrayList;
 import java.util.List;

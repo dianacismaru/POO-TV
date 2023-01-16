@@ -1,7 +1,7 @@
 package actions;
 
-import basefiles.Application;
-import basefiles.ErrorOutput;
+import core.Application;
+import core.ErrorOutput;
 import pages.Page;
 import pages.PageFactory;
 

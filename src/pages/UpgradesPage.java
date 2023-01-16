@@ -2,9 +2,9 @@ package pages;
 
 import actions.ChangePageAction;
 import actions.OnPageAction;
-import basefiles.Application;
-import basefiles.ErrorOutput;
-import basefiles.input.User;
+import core.Application;
+import core.ErrorOutput;
+import core.input.User;
 
 public final class UpgradesPage implements Page {
     private static final int PRICE_FOR_PREMIUM_ACCOUNT = 10;

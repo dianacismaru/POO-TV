@@ -1,8 +1,4 @@
-package basefiles;
-
-import basefiles.observer.Notification;
-import basefiles.observer.Observer;
-import basefiles.observer.Subject;
+package observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +12,6 @@ public final class Genre implements Subject {
         this.observers = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
     @Override
     public void addObserver(final Observer observer) {
         this.observers.add(observer);
@@ -34,5 +22,13 @@ public final class Genre implements Subject {
         for (Observer observer: observers) {
             observer.update(notification);
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
     }
 }

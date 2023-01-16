@@ -1,6 +1,6 @@
 package actions;
 
-import basefiles.ErrorOutput;
+import core.ErrorOutput;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 

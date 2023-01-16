@@ -1,4 +1,4 @@
-package basefiles.input;
+package core.input;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static basefiles.Utils.NUMBER_OF_GENRES;
+import static core.Utils.NUMBER_OF_GENRES;
 
 public final class Movie {
     private String name;

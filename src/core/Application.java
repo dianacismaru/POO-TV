@@ -1,15 +1,16 @@
-package basefiles;
+package core;
 
 import actions.Action;
 import actions.CommandInvoker;
-import basefiles.input.AppInput;
-import basefiles.input.Movie;
-import basefiles.input.User;
+import core.input.AppInput;
+import core.input.Movie;
+import core.input.User;
+import observer.Genre;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static basefiles.Utils.makeRecommendation;
+import static core.Utils.makeRecommendation;
 import static pages.Page.HOME_PAGE;
 import static pages.Page.SEE_DETAILS_PAGE;
 import static pages.Page.MOVIES_PAGE;
@@ -23,12 +24,11 @@ public final class Application {
     private static List<Movie> currentMoviesList;
     private static AppInput appInput;
     private static List<Movie> filteredMovieList;
-    private static List<Genre> genreList;
+    private static List<Genre> genreList = new ArrayList<>();
 
     private Application() {
         String[] genres = {"Action", "Horror", "Thriller", "Crime", "Comedy",
                 "Western", "Mystery", "Fantasy", "Drama", "Romance"};
-        genreList = new ArrayList<>();
 
         for (String genre: genres) {
             genreList.add(new Genre(genre));

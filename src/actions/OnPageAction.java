@@ -1,7 +1,7 @@
 package actions;
 
-import basefiles.input.Credentials;
-import basefiles.input.Filters;
+import core.input.Credentials;
+import core.input.Filters;
 import pages.DetailsPage;
 import pages.LoginPage;
 import pages.MoviesPage;

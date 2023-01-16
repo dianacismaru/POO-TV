@@ -1,9 +1,9 @@
-package basefiles.input;
+package core.input;
 
-import basefiles.Application;
-import basefiles.Genre;
-import basefiles.observer.Notification;
-import basefiles.observer.Observer;
+import core.Application;
+import observer.Genre;
+import observer.Notification;
+import observer.Observer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static basefiles.Utils.NUMBER_OF_GENRES;
+import static core.Utils.NUMBER_OF_GENRES;
 
 public final class User implements Observer {
     private static final int NUM_FREE_PREMIUM_MOVIES = 15;
@@ -50,6 +50,62 @@ public final class User implements Observer {
 
     public User(final Credentials credentials) {
         this.credentials = credentials;
+    }
+
+    /**
+     * Calculate the index of the current user in the list of users
+     * @return the index of the current user in the list of users, or -1 if the user is not found
+     */
+    public int calculateIndex() {
+        List<User> users = Application.getAppInput().getUsers();
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).credentials.getName().equals(this.credentials.getName())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Update the current user in the list of users
+     */
+    public void updateInInput() {
+        List<User> users = Application.getAppInput().getUsers();
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).credentials.getName().equals(this.credentials.getName())) {
+                users.set(i, new User(this));
+            }
+        }
+    }
+
+    /**
+     * Update the current user's lists of movies
+     */
+    public void updateLists() {
+        for (Movie movie: Application.getAppInput().getMovies()) {
+            movie.updateMovieInList(this.purchasedMovies);
+            movie.updateMovieInList(this.watchedMovies);
+            movie.updateMovieInList(this.likedMovies);
+            movie.updateMovieInList(this.ratedMovies);
+        }
+    }
+
+    @Override
+    public void update(final Notification notification) {
+        if (notification.getMessage().equals("DELETE")) {
+            if (credentials.getAccountType().equals("premium")) {
+                numFreePremiumMovies++;
+            } else {
+                tokensCount += 2;
+            }
+
+            purchasedMovies.removeIf(movie -> movie.getName().equals(notification.getMovieName()));
+            watchedMovies.removeIf(movie -> movie.getName().equals(notification.getMovieName()));
+            likedMovies.removeIf(movie -> movie.getName().equals(notification.getMovieName()));
+            ratedMovies.removeIf(movie -> movie.getName().equals(notification.getMovieName()));
+        }
+
+        notifications.add(notification);
     }
 
     public Credentials getCredentials() {
@@ -122,51 +178,5 @@ public final class User implements Observer {
 
     public List<Integer> getLikesForGenres() {
         return likesForGenres;
-    }
-
-    public int calculateIndex() {
-        List<User> users = Application.getAppInput().getUsers();
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).credentials.getName().equals(this.credentials.getName())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public void updateInInput() {
-        List<User> users = Application.getAppInput().getUsers();
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).credentials.getName().equals(this.credentials.getName())) {
-                users.set(i, this);
-            }
-        }
-    }
-
-    public void updateLists() {
-        for (Movie movie: Application.getAppInput().getMovies()) {
-            movie.updateMovieInList(this.purchasedMovies);
-            movie.updateMovieInList(this.watchedMovies);
-            movie.updateMovieInList(this.likedMovies);
-            movie.updateMovieInList(this.ratedMovies);
-        }
-    }
-
-    @Override
-    public void update(final Notification notification) {
-        if (notification.getMessage().equals("DELETE")) {
-            if (credentials.getAccountType().equals("premium")) {
-                numFreePremiumMovies++;
-            } else {
-                tokensCount += 2;
-            }
-
-            purchasedMovies.removeIf(movie -> movie.getName().equals(notification.getMovieName()));
-            watchedMovies.removeIf(movie -> movie.getName().equals(notification.getMovieName()));
-            likedMovies.removeIf(movie -> movie.getName().equals(notification.getMovieName()));
-            ratedMovies.removeIf(movie -> movie.getName().equals(notification.getMovieName()));
-        }
-
-        notifications.add(notification);
     }
 }

@@ -1,4 +1,4 @@
-package basefiles.observer;
+package observer;
 
 public final class Notification {
     private String movieName;

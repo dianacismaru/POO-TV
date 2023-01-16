@@ -1,4 +1,4 @@
-package basefiles.input;
+package core.input;
 
 import java.util.Comparator;
 import java.util.List;

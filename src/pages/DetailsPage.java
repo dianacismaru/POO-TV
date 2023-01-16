@@ -2,16 +2,16 @@ package pages;
 
 import actions.ChangePageAction;
 import actions.OnPageAction;
-import basefiles.Application;
-import basefiles.ErrorOutput;
-import basefiles.Genre;
-import basefiles.input.Movie;
-import basefiles.input.User;
+import core.Application;
+import core.ErrorOutput;
+import observer.Genre;
+import core.input.Movie;
+import core.input.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static basefiles.Utils.NUMBER_OF_GENRES;
+import static core.Utils.NUMBER_OF_GENRES;
 
 public final class DetailsPage implements Page {
     private static final int MAXIMUM_RATING = 5;

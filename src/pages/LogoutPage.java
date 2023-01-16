@@ -2,8 +2,8 @@ package pages;
 
 import actions.ChangePageAction;
 import actions.CommandInvoker;
-import basefiles.Application;
-import basefiles.ErrorOutput;
+import core.Application;
+import core.ErrorOutput;
 
 public final class LogoutPage implements Page {
     @Override

@@ -1,11 +1,11 @@
 package actions;
 
-import basefiles.Application;
-import basefiles.ErrorOutput;
-import basefiles.Genre;
-import basefiles.input.Movie;
-import basefiles.input.User;
-import basefiles.observer.Notification;
+import core.Application;
+import core.ErrorOutput;
+import observer.Genre;
+import core.input.Movie;
+import core.input.User;
+import observer.Notification;
 import java.util.List;
 
 public final class DatabaseAction extends Action {

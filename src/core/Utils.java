@@ -1,8 +1,8 @@
-package basefiles;
+package core;
 
-import basefiles.input.Movie;
-import basefiles.input.User;
-import basefiles.observer.Notification;
+import core.input.Movie;
+import core.input.User;
+import observer.Notification;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,12 +10,17 @@ import java.util.Comparator;
 import java.util.List;
 
 public final class Utils {
-    public static int NUMBER_OF_GENRES = 10;
+    public static final int NUMBER_OF_GENRES = 10;
 
     private Utils() {
 
     }
 
+    /**
+     * Create a new notification with a movie recommendation if the current user is premium
+     * @param errorsOutput the list of output nodes
+     * @return the updated list of output nodes
+     */
     public static List<ErrorOutput> makeRecommendation(final List<ErrorOutput> errorsOutput) {
         if (Application.getCurrentUser() == null
                 || Application.getCurrentUser().getCredentials()
@@ -32,6 +37,10 @@ public final class Utils {
         return errorsOutput;
     }
 
+    /**
+     * Search for the best movie to recommend to the current premium user
+     * @return the name of the recommended movie
+     */
     public static String getTopMovie() {
         if (Application.getCurrentUser().getLikedMovies().size() == 0) {
             return "No recommendation";
@@ -69,7 +78,7 @@ public final class Utils {
         }
 
         List<Movie> movieList = new ArrayList<>(Application.getCurrentMoviesList());
-        movieList.sort(new Comparator<Movie>() {
+        movieList.sort(new Comparator<>() {
             @Override
             public int compare(final Movie o1, final Movie o2) {
                 return o2.getNumLikes() - o1.getNumLikes();

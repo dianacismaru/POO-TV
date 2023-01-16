@@ -1,7 +1,7 @@
-package basefiles;
+package core;
 
-import basefiles.input.Movie;
-import basefiles.input.User;
+import core.input.Movie;
+import core.input.User;
 
 import java.util.ArrayList;
 import java.util.List;

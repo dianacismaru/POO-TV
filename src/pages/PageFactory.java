@@ -13,7 +13,7 @@ public final class PageFactory {
     }
 
     /**
-     *
+     * Create a specific type of page using Factory Method Pattern
      * @param pageType the type of page to create
      * @return a new Page object of the specified type, or null if the pageType is not recognized
      */
